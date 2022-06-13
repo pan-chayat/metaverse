@@ -1,10 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+import { Provider } from "react-redux";
+import { ThemeProvider } from "@mui/material/styles";
+import muiTheme from "./MuiTheme";
+import store from "./stores";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <ThemeProvider theme={muiTheme}>
+        <App />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
-)
+);
