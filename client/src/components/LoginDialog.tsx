@@ -1,29 +1,32 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
-import Avatar from '@mui/material/Avatar'
-import Alert from '@mui/material/Alert'
-import AlertTitle from '@mui/material/AlertTitle'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import React, { useState } from "react";
+import styled from "styled-components";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation } from 'swiper'
-import 'swiper/swiper.min.css'
-import 'swiper/components/navigation/navigation.min.css'
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation } from "swiper";
+// import "swiper/swiper.min.css";
+// import "swiper/components/navigation/navigation.min.css";
 
-import Adam from '../assets/Adam_login.png'
-import Ash from '../assets/Ash_login.png'
-import Lucy from '../assets/Lucy_login.png'
-import Nancy from '../assets/Nancy_login.png'
-import { useAppSelector, useAppDispatch } from '../hooks'
-import { setLoggedIn } from '../stores/UserStore'
-import { getAvatarString, getColorByString } from '../util'
+// import "swiper/css";
+// import "swiper/css/navigation";
 
-import phaserGame from '../PhaserGame'
-import Game from '../scenes/Game'
+import Adam from "../assets/Adam_login.png";
+import Ash from "../assets/Ash_login.png";
+import Lucy from "../assets/Lucy_login.png";
+import Nancy from "../assets/Nancy_login.png";
+import { useAppSelector, useAppDispatch } from "../hooks";
+import { setLoggedIn } from "../stores/UserStore";
+import { getAvatarString, getColorByString } from "../util";
 
-SwiperCore.use([Navigation])
+import phaserGame from "../PhaserGame";
+import Game from "../scenes/Game";
+
+SwiperCore.use([Navigation]);
 
 const Wrapper = styled.form`
   position: fixed;
@@ -34,14 +37,14 @@ const Wrapper = styled.form`
   border-radius: 16px;
   padding: 36px 60px;
   box-shadow: 0px 0px 5px #0000006f;
-`
+`;
 
 const Title = styled.p`
   margin: 5px;
   font-size: 20px;
   color: #c2c2c2;
   text-align: center;
-`
+`;
 
 const RoomName = styled.div`
   max-width: 500px;
@@ -56,7 +59,7 @@ const RoomName = styled.div`
     font-size: 24px;
     color: #eee;
   }
-`
+`;
 
 const RoomDescription = styled.div`
   max-width: 500px;
@@ -67,19 +70,19 @@ const RoomDescription = styled.div`
   color: #c2c2c2;
   display: flex;
   justify-content: center;
-`
+`;
 
 const SubTitle = styled.h3`
   width: 160px;
   font-size: 16px;
   color: #eee;
   text-align: center;
-`
+`;
 
 const Content = styled.div`
   display: flex;
   margin: 36px 0;
-`
+`;
 
 const Left = styled.div`
   margin-right: 48px;
@@ -108,17 +111,17 @@ const Left = styled.div`
     height: 136px;
     object-fit: contain;
   }
-`
+`;
 
 const Right = styled.div`
   width: 300px;
-`
+`;
 
 const Bottom = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const Warning = styled.div`
   margin-top: 30px;
@@ -126,45 +129,45 @@ const Warning = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3px;
-`
+`;
 
 const avatars = [
-  { name: 'adam', img: Adam },
-  { name: 'ash', img: Ash },
-  { name: 'lucy', img: Lucy },
-  { name: 'nancy', img: Nancy },
-]
+  { name: "adam", img: Adam },
+  { name: "ash", img: Ash },
+  { name: "lucy", img: Lucy },
+  { name: "nancy", img: Nancy },
+];
 
 // shuffle the avatars array
 for (let i = avatars.length - 1; i > 0; i--) {
-  const j = Math.floor(Math.random() * (i + 1))
-  ;[avatars[i], avatars[j]] = [avatars[j], avatars[i]]
+  const j = Math.floor(Math.random() * (i + 1));
+  [avatars[i], avatars[j]] = [avatars[j], avatars[i]];
 }
 
 export default function LoginDialog() {
-  const [name, setName] = useState<string>('')
-  const [avatarIndex, setAvatarIndex] = useState<number>(0)
-  const [nameFieldEmpty, setNameFieldEmpty] = useState<boolean>(false)
-  const dispatch = useAppDispatch()
-  const videoConnected = useAppSelector((state) => state.user.videoConnected)
-  const roomJoined = useAppSelector((state) => state.room.roomJoined)
-  const roomName = useAppSelector((state) => state.room.roomName)
-  const roomDescription = useAppSelector((state) => state.room.roomDescription)
-  const game = phaserGame.scene.keys.game as Game
+  const [name, setName] = useState<string>("");
+  const [avatarIndex, setAvatarIndex] = useState<number>(0);
+  const [nameFieldEmpty, setNameFieldEmpty] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const videoConnected = useAppSelector((state) => state.user.videoConnected);
+  const roomJoined = useAppSelector((state) => state.room.roomJoined);
+  const roomName = useAppSelector((state) => state.room.roomName);
+  const roomDescription = useAppSelector((state) => state.room.roomDescription);
+  const game = phaserGame.scene.keys.game as Game;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    if (name === '') {
-      setNameFieldEmpty(true)
+    event.preventDefault();
+    if (name === "") {
+      setNameFieldEmpty(true);
     } else if (roomJoined) {
-      console.log('Join! Name:', name, 'Avatar:', avatars[avatarIndex].name)
-      game.registerKeys()
-      game.myPlayer.setPlayerName(name)
-      game.myPlayer.setPlayerTexture(avatars[avatarIndex].name)
-      game.network.readyToConnect()
-      dispatch(setLoggedIn(true))
+      console.log("Join! Name:", name, "Avatar:", avatars[avatarIndex].name);
+      game.registerKeys();
+      game.myPlayer.setPlayerName(name);
+      game.myPlayer.setPlayerTexture(avatars[avatarIndex].name);
+      game.network.readyToConnect();
+      dispatch(setLoggedIn(true));
     }
-  }
+  };
 
   return (
     <Wrapper onSubmit={handleSubmit}>
@@ -182,19 +185,24 @@ export default function LoginDialog() {
         <Left>
           <SubTitle>Select an avatar</SubTitle>
           <Swiper
+            modules={[Navigation]}
             // install Swiper modules
             navigation
             spaceBetween={0}
             slidesPerView={1}
             onSlideChange={(swiper) => {
-              setAvatarIndex(swiper.activeIndex)
+              // setAvatarIndex(swiper.activeIndex);
             }}
           >
-            {avatars.map((avatar) => (
+            <SwiperSlide>Slide 1</SwiperSlide>
+            <SwiperSlide>Slide 2</SwiperSlide>
+            <SwiperSlide>Slide 3</SwiperSlide>
+            <SwiperSlide>Slide 4</SwiperSlide>
+            {/* {avatars.map((avatar) => (
               <SwiperSlide key={avatar.name}>
                 <img src={avatar.img} alt={avatar.name} />
               </SwiperSlide>
-            ))}
+            ))} */}
           </Swiper>
         </Left>
         <Right>
@@ -205,22 +213,23 @@ export default function LoginDialog() {
             variant="outlined"
             color="secondary"
             error={nameFieldEmpty}
-            helperText={nameFieldEmpty && 'Name is required'}
+            helperText={nameFieldEmpty && "Name is required"}
             onInput={(e) => {
-              setName((e.target as HTMLInputElement).value)
+              setName((e.target as HTMLInputElement).value);
             }}
           />
           {!videoConnected && (
             <Warning>
               <Alert variant="outlined" severity="warning">
                 <AlertTitle>Warning</AlertTitle>
-                No webcam/mic connected - <strong>connect one for best experience!</strong>
+                No webcam/mic connected -{" "}
+                <strong>connect one for best experience!</strong>
               </Alert>
               <Button
                 variant="outlined"
                 color="secondary"
                 onClick={() => {
-                  game.network.webRTC?.getUserMedia()
+                  game.network.webRTC?.getUserMedia();
                 }}
               >
                 Connect Webcam
@@ -236,10 +245,15 @@ export default function LoginDialog() {
         </Right>
       </Content>
       <Bottom>
-        <Button variant="contained" color="secondary" size="large" type="submit">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          type="submit"
+        >
           Join
         </Button>
       </Bottom>
     </Wrapper>
-  )
+  );
 }
