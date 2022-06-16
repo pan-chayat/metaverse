@@ -7,13 +7,10 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
-// import "swiper/swiper.min.css";
-// import "swiper/components/navigation/navigation.min.css";
-
-// import "swiper/css";
-// import "swiper/css/navigation";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper";
 
 import Adam from "../assets/Adam_login.png";
 import Ash from "../assets/Ash_login.png";
@@ -25,8 +22,6 @@ import { getAvatarString, getColorByString } from "../util";
 
 import phaserGame from "../PhaserGame";
 import Game from "../scenes/Game";
-
-SwiperCore.use([Navigation]);
 
 const Wrapper = styled.form`
   position: fixed;
@@ -84,20 +79,21 @@ const Content = styled.div`
   margin: 36px 0;
 `;
 
+
 const Left = styled.div`
   margin-right: 48px;
 
   --swiper-navigation-size: 24px;
 
-  .swiper-container {
-    width: 160px;
+  .swiper{
+    max-width: 160px;
     height: 220px;
     border-radius: 8px;
     overflow: hidden;
   }
 
   .swiper-slide {
-    width: 160px;
+    max-width: 160px;
     height: 220px;
     background: #dbdbe0;
     display: flex;
@@ -107,7 +103,7 @@ const Left = styled.div`
 
   .swiper-slide img {
     display: block;
-    width: 95px;
+    max-width: 95px;
     height: 136px;
     object-fit: contain;
   }
@@ -185,24 +181,21 @@ export default function LoginDialog() {
         <Left>
           <SubTitle>Select an avatar</SubTitle>
           <Swiper
+            navigation={true}
             modules={[Navigation]}
-            // install Swiper modules
-            navigation
             spaceBetween={0}
             slidesPerView={1}
             onSlideChange={(swiper) => {
-              // setAvatarIndex(swiper.activeIndex);
+              setAvatarIndex(swiper.activeIndex);
+              console.log(swiper.activeIndex)
             }}
+            onSwiper={(swiper) => console.log(swiper)}
           >
-            <SwiperSlide>Slide 1</SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
-            <SwiperSlide>Slide 4</SwiperSlide>
-            {/* {avatars.map((avatar) => (
+            {avatars.map((avatar) => (
               <SwiperSlide key={avatar.name}>
                 <img src={avatar.img} alt={avatar.name} />
               </SwiperSlide>
-            ))} */}
+            ))}
           </Swiper>
         </Left>
         <Right>
