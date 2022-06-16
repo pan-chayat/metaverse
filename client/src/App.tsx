@@ -29,6 +29,7 @@ function App() {
   const videoConnected = useAppSelector((state) => state.user.videoConnected);
   const roomJoined = useAppSelector((state) => state.room.roomJoined);
 
+  console.log(videoConnected);
   let ui: JSX.Element;
   if (loggedIn) {
     if (computerDialogOpen) {

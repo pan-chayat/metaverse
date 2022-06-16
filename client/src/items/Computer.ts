@@ -56,6 +56,7 @@ export default class Computer extends Item {
   openDialog(playerId: string, network: Network) {
     if (!this.id) return
     store.dispatch(openComputerDialog({ computerId: this.id, myUserId: playerId }))
+    console.log("should open dialog")
     network.connectToComputer(this.id)
   }
 }

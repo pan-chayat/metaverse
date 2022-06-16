@@ -189,7 +189,6 @@ export default function LoginDialog() {
               setAvatarIndex(swiper.activeIndex);
               console.log(swiper.activeIndex)
             }}
-            onSwiper={(swiper) => console.log(swiper)}
           >
             {avatars.map((avatar) => (
               <SwiperSlide key={avatar.name}>
