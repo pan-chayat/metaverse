@@ -4235,29 +4235,6 @@
         }, 
         {
          "draworder":"topdown",
-         "id":17,
-         "name":"ludo",
-         "objects":[
-                {
-                 "gid":5489,
-                 "height":16,
-                 "id":1269,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":511.333333333333,
-                 "y":282.666666666667
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
          "id":14,
          "name":"VendingMachine",
          "objects":[
@@ -4278,9 +4255,32 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":17,
+         "name":"Ludo",
+         "objects":[
+                {
+                 "gid":5489,
+                 "height":16,
+                 "id":1286,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":500.666666666667,
+                 "y":285.333333333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":1270,
+ "nextobjectid":1287,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",
