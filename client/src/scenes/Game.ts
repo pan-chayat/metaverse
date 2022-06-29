@@ -20,6 +20,7 @@ import { ItemType } from "../../../types/Items";
 
 import store from "../stores";
 import { setFocused, setShowChat } from "../stores/ChatStore";
+import LudoBoard from "../items/Ludo";
 
 export default class Game extends Phaser.Scene {
   network!: Network;
@@ -44,11 +45,11 @@ export default class Game extends Phaser.Scene {
     this.keyE = this.input.keyboard.addKey("E");
     this.keyR = this.input.keyboard.addKey("R");
     this.input.keyboard.disableGlobalCapture();
-    this.input.keyboard.on("keydown-ENTER", (event) => {
+    this.input.keyboard.on("keydown-ENTER", (event: KeyboardEvent) => {
       store.dispatch(setShowChat(true));
       store.dispatch(setFocused(true));
     });
-    this.input.keyboard.on("keydown-ESC", (event) => {
+    this.input.keyboard.on("keydown-ESC", (event: KeyboardEvent) => {
       store.dispatch(setShowChat(false));
     });
   }
@@ -148,6 +149,24 @@ export default class Game extends Phaser.Scene {
       );
     });
 
+    // importing ludo to tiled
+    // this.addGroupFromTiled("Ludo", "ludo16x16", "ludo16x16", false);
+    const ludoBoards = this.physics.add.staticGroup({
+      classType: LudoBoard,
+    });
+    const ludoBoardLayer = this.map.getObjectLayer("Ludo");
+    ludoBoardLayer.objects.forEach((obj, i) => {
+      const item = this.addObjectFromTiled(
+        ludoBoards,
+        obj,
+        "ludo16x16",
+        "ludo16x16"
+      ) as LudoBoard;
+      const id = `${i}`;
+      item.id = id;
+      // this.whiteboardMap.set(id, item);
+    });
+
     // import other objects from Tiled map to Phaser
     this.addGroupFromTiled("Wall", "tiles_wall", "FloorAndGround", false);
     this.addGroupFromTiled(
@@ -170,7 +189,6 @@ export default class Game extends Phaser.Scene {
       true
     );
     this.addGroupFromTiled("Basement", "basement", "Basement", true);
-    this.addGroupFromTiled("Ludo", "ludo16x16", "ludo16x16", false);
 
     this.otherPlayers = this.physics.add.group({ classType: OtherPlayer });
 
@@ -188,7 +206,7 @@ export default class Game extends Phaser.Scene {
 
     this.physics.add.overlap(
       this.playerSelector,
-      [chairs, computers, whiteboards, vendingMachines],
+      [chairs, computers, whiteboards, vendingMachines, ludoBoards],
       this.handleItemSelectorOverlap,
       undefined,
       this
@@ -213,7 +231,7 @@ export default class Game extends Phaser.Scene {
     this.network.onChatMessageAdded(this.handleChatMessageAdded, this);
   }
 
-  private handleItemSelectorOverlap(playerSelector, selectionItem) {
+  private handleItemSelectorOverlap(playerSelector: any, selectionItem: any) {
     const currentItem = playerSelector.selectedItem as Item;
     // currentItem is undefined if nothing was perviously selected
     if (currentItem) {

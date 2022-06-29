@@ -30,7 +30,6 @@ function App() {
   const roomJoined = useAppSelector((state) => state.room.roomJoined);
   // const ludoDialogOpen = useAppSelector((state) => state.ludo.ludoDialogOpen);
 
-  console.log(videoConnected);
   let ui: JSX.Element;
   if (loggedIn) {
     if (computerDialogOpen) {
