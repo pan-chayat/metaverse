@@ -113,7 +113,6 @@ export default class WebRTC {
     video.addEventListener("loadedmetadata", () => {
       video.play();
     });
-    console.log(this.videoGrid);
     if (this.videoGrid) this.videoGrid.append(video);
   }
 

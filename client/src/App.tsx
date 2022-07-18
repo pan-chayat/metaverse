@@ -17,6 +17,7 @@ import WhiteboardDialog from "./components/WhiteboardDialog";
 import VideoConnectionDialog from "./components/VideoConnectionDialog";
 import Chat from "./components/Chat";
 import HelperButtonGroup from "./components/HelperButtonGroup";
+import LudoDialog from "./components/LudoDialog";
 
 function App() {
   const loggedIn = useAppSelector((state) => state.user.loggedIn);
@@ -25,6 +26,9 @@ function App() {
   );
   const whiteboardDialogOpen = useAppSelector(
     (state) => state.whiteboard.whiteboardDialogOpen
+  );
+  const ludoboardDialogOpen = useAppSelector(
+    (state) => state.ludo.ludoDialogOpen
   );
   const videoConnected = useAppSelector((state) => state.user.videoConnected);
   const roomJoined = useAppSelector((state) => state.room.roomJoined);
@@ -35,6 +39,8 @@ function App() {
     if (computerDialogOpen) {
       /* Render ComputerDialog if user is using a computer. */
       ui = <ComputerDialog />;
+    } else if (ludoboardDialogOpen) {
+      ui = <LudoDialog />;
     } else if (whiteboardDialogOpen) {
       /* Render WhiteboardDialog if user is using a whiteboard. */
       ui = <WhiteboardDialog />;

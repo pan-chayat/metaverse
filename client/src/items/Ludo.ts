@@ -2,7 +2,7 @@ import { ItemType } from "../../../types/Items";
 import store from "../stores";
 import Item from "./Item";
 import Network from "../services/Network";
-import { openWhiteboardDialog } from "../stores/WhiteboardStore";
+import { openLudoDialog } from "../stores/LudoStore";
 
 export default class LudoBoard extends Item {
   id?: string;
@@ -17,7 +17,7 @@ export default class LudoBoard extends Item {
   ) {
     super(scene, x, y, texture, frame);
 
-    this.itemType = ItemType.WHITEBOARD;
+    this.itemType = ItemType.LUDOBOARD;
   }
 
   private updateStatus() {
@@ -53,8 +53,11 @@ export default class LudoBoard extends Item {
 
   openDialog(network: Network) {
     console.log("clicked R");
-    if (!this.id) return;
-    store.dispatch(openWhiteboardDialog(this.id));
-    network.connectToWhiteboard(this.id);
+    if (!this.id) {
+      return;
+    }
+    store.dispatch(openLudoDialog(this.id));
+    // store.dispatch(openWhiteboardDialog(this.id));
+    // network.connectToWhiteboard(this.id);
   }
 }

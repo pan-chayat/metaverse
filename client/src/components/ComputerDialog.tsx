@@ -81,7 +81,6 @@ function VideoContainer({
   playerName: any;
   stream: any;
 }) {
-  console.log(stream);
   return (
     <div className="video-container">
       <Video srcObject={stream} autoPlay></Video>
@@ -99,7 +98,6 @@ export default function ComputerDialog() {
   const myStream = useAppSelector((state) => state.computer.myStream);
   const peerStreams = useAppSelector((state) => state.computer.peerStreams);
 
-  console.log("why no work", myStream);
   return (
     <Backdrop>
       <Wrapper>

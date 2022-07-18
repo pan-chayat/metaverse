@@ -17,42 +17,49 @@ const initialState: LudoState = {
   urls: new Map(),
 };
 
-export const whiteboardSlice = createSlice({
+export const ludoboardSlice = createSlice({
   name: "ludo",
   initialState,
   reducers: {
-    openWhiteboardDialog: (state, action: PayloadAction<string>) => {
+    openLudoDialog: (state, action: PayloadAction<string>) => {
+      console.log("should open dialog");
       state.ludoDialogOpen = true;
-      state.whiteboardId = action.payload;
-      const url = state.urls.get(action.payload);
-      if (url) state.whiteboardUrl = url;
       const game = phaserGame.scene.keys.game as Game;
       game.disableKeys();
     },
-    closeWhiteboardDialog: (state) => {
+    closeLudoDialog: (state) => {
+      state.ludoDialogOpen = false;
       const game = phaserGame.scene.keys.game as Game;
       game.enableKeys();
-      game.network.disconnectFromWhiteboard(state.whiteboardId!);
-      state.ludoDialogOpen = false;
-      state.whiteboardId = null;
-      state.whiteboardUrl = null;
     },
-    setWhiteboardUrls: (
-      state,
-      action: PayloadAction<{ whiteboardId: string; roomId: string }>
-    ) => {
-      state.urls.set(
-        action.payload.whiteboardId,
-        `https://www.tldraw.com/r/sky-office-${action.payload.roomId}`
-      );
-    },
+    // openWhiteboardDialog: (state, action: PayloadAction<string>) => {
+    //   state.ludoDialogOpen = true;
+    //   state.whiteboardId = action.payload;
+    //   const url = state.urls.get(action.payload);
+    //   if (url) state.whiteboardUrl = url;
+    //   const game = phaserGame.scene.keys.game as Game;
+    //   game.disableKeys();
+    // },
+    // closeWhiteboardDialog: (state) => {
+    //   const game = phaserGame.scene.keys.game as Game;
+    //   game.enableKeys();
+    //   game.network.disconnectFromWhiteboard(state.whiteboardId!);
+    //   state.ludoDialogOpen = false;
+    //   state.whiteboardId = null;
+    //   state.whiteboardUrl = null;
+    // },
+    // setWhiteboardUrls: (
+    //   state,
+    //   action: PayloadAction<{ whiteboardId: string; roomId: string }>
+    // ) => {
+    //   state.urls.set(
+    //     action.payload.whiteboardId,
+    //     `https://www.tldraw.com/r/sky-office-${action.payload.roomId}`
+    //   );
+    // },
   },
 });
 
-export const {
-  openWhiteboardDialog,
-  closeWhiteboardDialog,
-  setWhiteboardUrls,
-} = whiteboardSlice.actions;
+export const { openLudoDialog, closeLudoDialog } = ludoboardSlice.actions;
 
-export default whiteboardSlice.reducer;
+export default ludoboardSlice.reducer;
