@@ -29,4 +29,10 @@ export interface IOfficeState extends Schema {
   computers: MapSchema<IComputer>;
   whiteboards: MapSchema<IWhiteboard>;
   chatMessages: ArraySchema<IChatMessage>;
+  tictactoe: ITicTacToeState;
+}
+
+export interface ITicTacToeState extends Schema {
+  board: ArraySchema<number>;
+  activePlayer: number;
 }
