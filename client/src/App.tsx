@@ -17,7 +17,7 @@ import WhiteboardDialog from "./components/WhiteboardDialog";
 import VideoConnectionDialog from "./components/VideoConnectionDialog";
 import Chat from "./components/Chat";
 import HelperButtonGroup from "./components/HelperButtonGroup";
-import LudoDialog from "./components/LudoDialog";
+import TicTacToeDialog from "./components/TicTacToeDialog";
 
 function App() {
   const loggedIn = useAppSelector((state) => state.user.loggedIn);
@@ -28,7 +28,7 @@ function App() {
     (state) => state.whiteboard.whiteboardDialogOpen
   );
   const ludoboardDialogOpen = useAppSelector(
-    (state) => state.ludo.ludoDialogOpen
+    (state) => state.tictactoe.tictactoeDialogOpen
   );
   const videoConnected = useAppSelector((state) => state.user.videoConnected);
   const roomJoined = useAppSelector((state) => state.room.roomJoined);
@@ -40,7 +40,7 @@ function App() {
       /* Render ComputerDialog if user is using a computer. */
       ui = <ComputerDialog />;
     } else if (ludoboardDialogOpen) {
-      ui = <LudoDialog />;
+      ui = <TicTacToeDialog />;
     } else if (whiteboardDialogOpen) {
       /* Render WhiteboardDialog if user is using a whiteboard. */
       ui = <WhiteboardDialog />;

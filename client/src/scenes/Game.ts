@@ -20,7 +20,7 @@ import { ItemType } from "../../../types/Items";
 
 import store from "../stores";
 import { setFocused, setShowChat } from "../stores/ChatStore";
-import LudoBoard from "../items/Ludo";
+import LudoBoard from "../items/TicTacToe";
 
 export default class Game extends Phaser.Scene {
   network!: Network;

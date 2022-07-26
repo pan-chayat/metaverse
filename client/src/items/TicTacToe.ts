@@ -2,7 +2,7 @@ import { ItemType } from "../../../types/Items";
 import store from "../stores";
 import Item from "./Item";
 import Network from "../services/Network";
-import { openLudoDialog } from "../stores/LudoStore";
+import { openTicTacToeDialog } from "../stores/TicTacToeStore";
 
 export default class LudoBoard extends Item {
   id?: string;
@@ -56,7 +56,7 @@ export default class LudoBoard extends Item {
     if (!this.id) {
       return;
     }
-    store.dispatch(openLudoDialog(this.id));
+    store.dispatch(openTicTacToeDialog(this.id));
     // store.dispatch(openWhiteboardDialog(this.id));
     // network.connectToWhiteboard(this.id);
   }

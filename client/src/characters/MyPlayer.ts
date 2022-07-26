@@ -12,7 +12,7 @@ import { phaserEvents, Event } from "../events/EventCenter";
 import store from "../stores";
 import { pushPlayerJoinedMessage } from "../stores/ChatStore";
 import { ItemType } from "../../../types/Items";
-import LudoBoard from "../items/Ludo";
+import LudoBoard from "../items/TicTacToe";
 
 export default class MyPlayer extends Player {
   private playContainerBody: Phaser.Physics.Arcade.Body;

@@ -5,7 +5,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { useAppSelector, useAppDispatch } from "../hooks";
 // import { closeWhiteboardDialog } from "../stores/WhiteboardStore";
-import { closeLudoDialog } from "../stores/LudoStore";
+import { closeTicTacToeDialog } from "../stores/TicTacToeStore";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -45,7 +45,7 @@ const LudoWrapper = styled.div`
   }
 `;
 
-export default function LudoDialog() {
+export default function TicTacToeDialog() {
   const dispatch = useAppDispatch();
 
   return (
@@ -54,7 +54,7 @@ export default function LudoDialog() {
         <IconButton
           aria-label="close dialog"
           className="close"
-          onClick={() => dispatch(closeLudoDialog())}
+          onClick={() => dispatch(closeTicTacToeDialog())}
         >
           <CloseIcon />
         </IconButton>
