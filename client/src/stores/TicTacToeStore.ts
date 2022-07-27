@@ -3,22 +3,18 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import phaserGame from "../PhaserGame";
 import Game from "../scenes/Game";
 
-interface LudoState {
+interface TicTacToeState {
   tictactoeDialogOpen: boolean;
-  whiteboardId: null | string;
-  whiteboardUrl: null | string;
-  urls: Map<string, string>;
+  boardState: Array<number>;
 }
 
-const initialState: LudoState = {
+const initialState: TicTacToeState = {
   tictactoeDialogOpen: false,
-  whiteboardId: null,
-  whiteboardUrl: null,
-  urls: new Map(),
+  boardState: new Array(9).fill(0),
 };
 
 export const tictactoeSlice = createSlice({
-  name: "ludo",
+  name: "tictactoe",
   initialState,
   reducers: {
     openTicTacToeDialog: (state, action: PayloadAction<string>) => {
@@ -32,10 +28,16 @@ export const tictactoeSlice = createSlice({
       const game = phaserGame.scene.keys.game as Game;
       game.enableKeys();
     },
+    setTicTacToeBoardInit: (state, action: PayloadAction<number[]>) => {
+      state.boardState = action.payload;
+    },
   },
 });
 
-export const { openTicTacToeDialog, closeTicTacToeDialog } =
-  tictactoeSlice.actions;
+export const {
+  openTicTacToeDialog,
+  closeTicTacToeDialog,
+  setTicTacToeBoardInit,
+} = tictactoeSlice.actions;
 
 export default tictactoeSlice.reducer;

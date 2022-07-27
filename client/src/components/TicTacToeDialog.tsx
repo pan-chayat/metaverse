@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import Phaser from "phaser";
 
 import { useAppSelector, useAppDispatch } from "../hooks";
 // import { closeWhiteboardDialog } from "../stores/WhiteboardStore";
 import { closeTicTacToeDialog } from "../stores/TicTacToeStore";
+import config from "../TicTacToeGame";
+// import tictactoeGame from "../TicTacToeGame";
+// import TicTacToeGame from "../scenes/TicTacToeGame";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -48,6 +52,12 @@ const LudoWrapper = styled.div`
 export default function TicTacToeDialog() {
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    const tictactoeGame = new Phaser.Game(config);
+
+    (window as any).tictactoe = tictactoeGame;
+  }, []);
+
   return (
     <Backdrop>
       <Wrapper>
@@ -58,7 +68,9 @@ export default function TicTacToeDialog() {
         >
           <CloseIcon />
         </IconButton>
-        <LudoWrapper>Yolo</LudoWrapper>
+        <LudoWrapper>
+          <div id="tictactoe-container"></div>
+        </LudoWrapper>
       </Wrapper>
     </Backdrop>
   );

@@ -20,7 +20,7 @@ import { ItemType } from "../../../types/Items";
 
 import store from "../stores";
 import { setFocused, setShowChat } from "../stores/ChatStore";
-import LudoBoard from "../items/TicTacToe";
+import TicTacToeBoard from "../items/TicTacToe";
 
 export default class Game extends Phaser.Scene {
   network!: Network;
@@ -152,7 +152,7 @@ export default class Game extends Phaser.Scene {
     // importing ludo to tiled
     // this.addGroupFromTiled("Ludo", "ludo16x16", "ludo16x16", false);
     const ludoBoards = this.physics.add.staticGroup({
-      classType: LudoBoard,
+      classType: TicTacToeBoard,
     });
     const ludoBoardLayer = this.map.getObjectLayer("Ludo");
     ludoBoardLayer.objects.forEach((obj, i) => {
@@ -161,7 +161,7 @@ export default class Game extends Phaser.Scene {
         obj,
         "ludo16x16",
         "ludo16x16"
-      ) as LudoBoard;
+      ) as TicTacToeBoard;
       const id = `${i}`;
       item.id = id;
       // this.whiteboardMap.set(id, item);

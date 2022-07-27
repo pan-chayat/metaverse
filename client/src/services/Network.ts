@@ -29,6 +29,7 @@ import {
   pushPlayerLeftMessage,
 } from "../stores/ChatStore";
 import { setWhiteboardUrls } from "../stores/WhiteboardStore";
+import { setTicTacToeBoardInit } from "../stores/TicTacToeStore";
 
 export default class Network {
   private client: Client;
@@ -193,7 +194,12 @@ export default class Network {
 
     // event listener for when tictactoe state changes
     this.room.state.tictactoe.onChange = (item) => {
-      console.log(item);
+      const boardInit = item.filter((val) => val.field === "board")[0];
+      console.log(Array.from(boardInit.value));
+      store.dispatch(setTicTacToeBoardInit(Array.from(boardInit.value)));
+      // item.forEach((val) => {
+      //   console.log(Array.from(val.value));
+      // });
     };
     // when the server sends room data
     this.room.onMessage(Message.SEND_ROOM_DATA, (content) => {

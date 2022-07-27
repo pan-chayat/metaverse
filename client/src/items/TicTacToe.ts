@@ -4,7 +4,7 @@ import Item from "./Item";
 import Network from "../services/Network";
 import { openTicTacToeDialog } from "../stores/TicTacToeStore";
 
-export default class LudoBoard extends Item {
+export default class TicTacToeBoard extends Item {
   id?: string;
   currentUsers = new Set<string>();
 

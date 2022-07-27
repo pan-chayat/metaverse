@@ -23,6 +23,12 @@ body {
   }
 }
 
+#tictactoe-container {
+  canvas {
+    display: block;
+  }
+}
+
 .video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 160px);

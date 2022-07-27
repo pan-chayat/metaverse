@@ -11,11 +11,9 @@ import muiTheme from "./MuiTheme";
 import store from "./stores";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider theme={muiTheme}>
-        <App />
-      </ThemeProvider>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <ThemeProvider theme={muiTheme}>
+      <App />
+    </ThemeProvider>
+  </Provider>
 );
