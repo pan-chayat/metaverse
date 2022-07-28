@@ -1,8 +1,6 @@
 import Phaser from "phaser";
+import TicTacToeBootstrap from "./scenes/TicTacToeBootstrap";
 import TicTacToeGame from "./scenes/TicTacToeGame";
-// import Game from "./scenes/Game";
-// import Background from "./scenes/Background";
-// import Bootstrap from "./scenes/Bootstrap";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -22,11 +20,7 @@ const config: Phaser.Types.Core.GameConfig = {
     },
   },
   autoFocus: true,
-  scene: [TicTacToeGame],
+  scene: [TicTacToeBootstrap, TicTacToeGame],
 };
-
-// const tictactoeGame = new Phaser.Game(config);
-
-// (window as any).tictactoe = tictactoeGame;
 
 export default config;

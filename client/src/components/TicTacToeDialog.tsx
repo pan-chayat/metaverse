@@ -5,11 +5,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import Phaser from "phaser";
 
 import { useAppSelector, useAppDispatch } from "../hooks";
-// import { closeWhiteboardDialog } from "../stores/WhiteboardStore";
 import { closeTicTacToeDialog } from "../stores/TicTacToeStore";
 import config from "../TicTacToeGame";
-// import tictactoeGame from "../TicTacToeGame";
-// import TicTacToeGame from "../scenes/TicTacToeGame";
+import TicTacToeBootstrap from "../scenes/TicTacToeBootstrap";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -49,13 +47,16 @@ const LudoWrapper = styled.div`
   }
 `;
 
+let tictactoeGame: Phaser.Game;
+let tictactoeBootstrap: Phaser.Scene;
+
 export default function TicTacToeDialog() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const tictactoeGame = new Phaser.Game(config);
-
+    tictactoeGame = new Phaser.Game(config);
     (window as any).tictactoe = tictactoeGame;
+    console.log(tictactoeGame.scene.keys.tictactoe);
   }, []);
 
   return (
@@ -75,3 +76,5 @@ export default function TicTacToeDialog() {
     </Backdrop>
   );
 }
+
+export { tictactoeGame };
