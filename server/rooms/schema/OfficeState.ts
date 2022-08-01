@@ -5,6 +5,7 @@ import {
   MapSchema,
   type,
 } from "@colyseus/schema";
+import { Cell } from "../../../types/CellValues";
 import {
   IPlayer,
   IOfficeState,
@@ -38,15 +39,13 @@ export class ChatMessage extends Schema implements IChatMessage {
   @type("string") content = "";
 }
 
-export class TicTacToe extends Schema implements ITicTacToeState {
-  @type(["number"]) board = new ArraySchema<number>();
-  @type("number") activePlayer = 0;
+// export class TicTacToe extends Schema implements ITicTacToeState {
+//   @type(["number"]) board = new ArraySchema<Cell>();
+//   // @type(["number"]) board = new number[]();
+//   // @type("number") activePlayer = 0;
+//   // @type("string") roomId = getRoomId();
 
-  constructor() {
-    super();
-    this.board = new ArraySchema(0, 0, 0, 0, 0, 0, 0, 0, 0);
-  }
-}
+// }
 
 export class OfficeState extends Schema implements IOfficeState {
   @type({ map: Player })
@@ -61,8 +60,8 @@ export class OfficeState extends Schema implements IOfficeState {
   @type([ChatMessage])
   chatMessages = new ArraySchema<ChatMessage>();
 
-  @type(TicTacToe)
-  tictactoe = new TicTacToe();
+  @type(["number"])
+  tictactoe = new ArraySchema<Cell>();
 }
 
 export const whiteboardRoomIds = new Set<string>();
@@ -75,6 +74,7 @@ function getRoomId() {
   for (let i = 0; i < 12; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
+  console.log(result);
   if (!whiteboardRoomIds.has(result)) {
     whiteboardRoomIds.add(result);
     return result;

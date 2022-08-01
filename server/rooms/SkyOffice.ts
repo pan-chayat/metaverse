@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { Room, Client, ServerError } from "colyseus";
+import { ArraySchema } from "@colyseus/schema";
 import { Dispatcher } from "@colyseus/command";
 import {
   Player,
@@ -22,6 +23,8 @@ import {
   WhiteboardRemoveUserCommand,
 } from "./commands/WhiteboardUpdateArrayCommand";
 import ChatMessageUpdateCommand from "./commands/ChatMessageUpdateCommand";
+import TicTacToePlayerSelectionCommand from "./commands/TicTacToePlayerSelectionCommand";
+import { Cell } from "../../types/CellValues";
 
 export class SkyOffice extends Room<OfficeState> {
   private dispatcher = new Dispatcher(this);
@@ -53,6 +56,10 @@ export class SkyOffice extends Room<OfficeState> {
     // HARD-CODED: Add 3 whiteboards in a room
     for (let i = 0; i < 3; i++) {
       this.state.whiteboards.set(String(i), new Whiteboard());
+    }
+
+    while (this.state.tictactoe.length != 9) {
+      this.state.tictactoe.push(0);
     }
 
     // when a player connect to a computer, add to the computer connectedUser array
@@ -178,6 +185,30 @@ export class SkyOffice extends Room<OfficeState> {
           { clientId: client.sessionId, content: message.content },
           { except: client }
         );
+      }
+    );
+
+    // when a player disconnect from a whiteboard, remove from the whiteboard connectedUser array
+    this.onMessage(
+      Message.CONNECT_TO_TICTACTOE,
+      (client, message: { tictactoeboardId: string }) => {
+        // this.dispatcher.dispatch(new WhiteboardRemoveUserCommand(), {
+        //   client,
+        //   whiteboardId: message.whiteboardId,
+        // });
+      }
+    );
+
+    // when player makes a move in TicTacToe
+    this.onMessage(
+      Message.PLAYER_MAKE_MOVE_TICTACTOE,
+      (client, message: { idx: number }) => {
+        console.log(message.idx);
+        // this.broadcast(Message.PLAYER_MAKE_MOVE_TICTACTOE, )
+        this.dispatcher.dispatch(new TicTacToePlayerSelectionCommand(), {
+          client,
+          idx: message.idx,
+        });
       }
     );
   }

@@ -28,8 +28,14 @@ export const tictactoeSlice = createSlice({
       const game = phaserGame.scene.keys.game as Game;
       game.enableKeys();
     },
-    setTicTacToeBoardInit: (state, action: PayloadAction<number[]>) => {
-      state.boardState = action.payload;
+    setUpdatedBoardState: (
+      state,
+      action: PayloadAction<{ changedValue: number; changedIndex: number }>
+    ) => {
+      // state.boardState = action.payload;
+      state.boardState[action.payload.changedIndex] =
+        action.payload.changedValue;
+      console.log(`state updated now`, state.boardState);
     },
   },
 });
@@ -37,7 +43,7 @@ export const tictactoeSlice = createSlice({
 export const {
   openTicTacToeDialog,
   closeTicTacToeDialog,
-  setTicTacToeBoardInit,
+  setUpdatedBoardState,
 } = tictactoeSlice.actions;
 
 export default tictactoeSlice.reducer;

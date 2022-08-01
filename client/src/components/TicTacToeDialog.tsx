@@ -56,7 +56,6 @@ export default function TicTacToeDialog() {
   useEffect(() => {
     tictactoeGame = new Phaser.Game(config);
     (window as any).tictactoe = tictactoeGame;
-    console.log(tictactoeGame.scene.keys.tictactoe);
   }, []);
 
   return (

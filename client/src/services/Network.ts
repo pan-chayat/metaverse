@@ -29,11 +29,13 @@ import {
   pushPlayerLeftMessage,
 } from "../stores/ChatStore";
 import { setWhiteboardUrls } from "../stores/WhiteboardStore";
-import { setTicTacToeBoardInit } from "../stores/TicTacToeStore";
+import { tictactoeGame } from "../components/TicTacToeDialog";
+import { setUpdatedBoardState } from "../stores/TicTacToeStore";
+import { Cell } from "../../../types/CellValues";
 
 export default class Network {
   private client: Client;
-  private room?: Room<IOfficeState>;
+  room?: Room<IOfficeState>;
   private lobby!: Room;
   webRTC?: WebRTC;
 
@@ -193,14 +195,16 @@ export default class Network {
     };
 
     // event listener for when tictactoe state changes
-    this.room.state.tictactoe.onChange = (item) => {
-      const boardInit = item.filter((val) => val.field === "board")[0];
-      console.log(Array.from(boardInit.value));
-      store.dispatch(setTicTacToeBoardInit(Array.from(boardInit.value)));
-      // item.forEach((val) => {
-      //   console.log(Array.from(val.value));
-      // });
+    this.room.state.tictactoe.onChange = (val, index) => {
+      console.log(
+        `received tictactoe changed state from colyseus emit phaser emit`
+      );
+      store.dispatch(
+        setUpdatedBoardState({ changedValue: val, changedIndex: index })
+      );
+      phaserEvents.emit(Event.BOARD_CHANGED);
     };
+
     // when the server sends room data
     this.room.onMessage(Message.SEND_ROOM_DATA, (content) => {
       store.dispatch(setJoinedRoomData(content));
@@ -221,6 +225,9 @@ export default class Network {
       const computerState = store.getState().computer;
       computerState.shareScreenManager?.onUserLeft(clientId);
     });
+
+    // when a user connects onto tictactoe game
+    this.room.onMessage(Message.CONNECT_TO_TICTACTOE, (clientId: string) => {});
   }
 
   // method to register event listener and call back function when a item user added
@@ -332,5 +339,20 @@ export default class Network {
 
   addChatMessage(content: string) {
     this.room?.send(Message.ADD_CHAT_MESSAGE, { content: content });
+  }
+
+  connectToTicTacToe() {
+    this.room?.send(Message.CONNECT_TO_TICTACTOE);
+  }
+
+  playerMakeMoveTicTacToe(idx: number) {
+    console.log(`sent room message PLAYER_MAKE_MOVE_TICTACTOE`);
+    this.room?.send(Message.PLAYER_MAKE_MOVE_TICTACTOE, { idx: idx });
+  }
+
+  // method to register event listener and call back function when a player updated
+  onBoardUpdated(callback: () => void, context?: any) {
+    console.log(`received phaser board changed event`);
+    phaserEvents.on(Event.BOARD_CHANGED, callback, context);
   }
 }

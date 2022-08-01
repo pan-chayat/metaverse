@@ -1,4 +1,5 @@
 import { Schema, ArraySchema, SetSchema, MapSchema } from "@colyseus/schema";
+import { Cell } from "./CellValues";
 
 export interface IPlayer extends Schema {
   name: string;
@@ -24,15 +25,20 @@ export interface IChatMessage extends Schema {
   content: string;
 }
 
+export interface ITicTacToeState extends Schema {
+  board: ArraySchema<Cell>;
+}
+
 export interface IOfficeState extends Schema {
   players: MapSchema<IPlayer>;
   computers: MapSchema<IComputer>;
   whiteboards: MapSchema<IWhiteboard>;
   chatMessages: ArraySchema<IChatMessage>;
-  tictactoe: ITicTacToeState;
+  // tictactoe: ITicTacToeState;
+  tictactoe: ArraySchema<Cell>;
 }
 
-export interface ITicTacToeState extends Schema {
-  board: ArraySchema<number>;
-  activePlayer: number;
-}
+// export interface ITicTacToeBoardState extends Schema {
+//   board:
+
+// }

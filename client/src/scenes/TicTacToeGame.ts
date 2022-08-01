@@ -2,10 +2,14 @@ import Phaser from "phaser";
 import Network from "../services/Network";
 import { connect } from "react-redux";
 import store from "../stores";
+import { Room } from "colyseus.js";
+import { ItemType } from "../../../types/Items";
+import { Cell } from "../../../types/CellValues";
 
 export default class TicTacToeGame extends Phaser.Scene {
   network!: Network;
-  boardState!: Array<number>;
+  private cells: { display: Phaser.GameObjects.Rectangle; value: Cell }[] = [];
+
   constructor() {
     super("tictactoe");
   }
@@ -25,17 +29,50 @@ export default class TicTacToeGame extends Phaser.Scene {
 
     const val = store.getState();
     val.tictactoe.boardState.forEach((cellState, idx) => {
-      this.add.rectangle(x, y, size, size, 0xffffff);
+      const cell = this.add
+        .rectangle(x, y, size, size, 0xffffff)
+        .setInteractive()
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+          this.network.playerMakeMoveTicTacToe(idx);
+          console.log(`called playerMakeMoveTicTacToe with idx ${idx}`);
+        });
+
+      this.cells.push({
+        display: cell,
+        value: cellState,
+      });
       x += size + 5;
       if ((idx + 1) % 3 === 0) {
         y += size + 5;
         x = width * 0.5 - size;
       }
     });
+
+    this.network.onItemUserAdded(this.handleItemUserAdded, this);
+    this.network.onBoardUpdated(this.handleBoardChanged, this);
   }
 
-  update(t: number, dt: number) {
-    const val = store.getState();
-    this.boardState = val.tictactoe.boardState;
+  private handleItemUserAdded(
+    playerId: string,
+    itemId: string,
+    itemType: ItemType
+  ) {}
+
+  makeSelection() {}
+
+  private handleBoardChanged() {
+    console.log(`inside handleBoard changed`);
+    const board = store.getState().tictactoe.boardState;
+    console.log(board);
+    console.log(this.cells);
+    // console.log(board);
+
+    for (let i = 0; i < board.length; i++) {
+      const cell = this.cells[i];
+      if (cell.value !== board[i]) {
+        this.add.star(cell.display.x, cell.display.y, 4, 4, 30, 0xff0000);
+        console.log(i);
+      }
+    }
   }
 }
