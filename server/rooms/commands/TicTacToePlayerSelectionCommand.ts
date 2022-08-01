@@ -12,7 +12,16 @@ export default class TicTacToePlayerSelectionCommand extends Command<IOfficeStat
     const { client, idx } = data;
 
     const clientIndex = this.room.clients.findIndex((c) => c.id === client.id);
+    console.log(clientIndex, "yoo");
     const cellValue = clientIndex === 0 ? Cell.X : Cell.O;
+    // should change tictactoe state
+    // change active player
+    const updatedArray = this.room.state.tictactoePlayerState.map(
+      (player, idx) => {
+        player.activePlayer = !player.activePlayer;
+        return player;
+      }
+    );
 
     this.room.state.tictactoe[idx] = cellValue;
   }

@@ -12,7 +12,7 @@ import {
   IComputer,
   IWhiteboard,
   IChatMessage,
-  ITicTacToeState,
+  ITicTacToePlayer,
 } from "../../../types/IOfficeState";
 
 export class Player extends Schema implements IPlayer {
@@ -39,13 +39,10 @@ export class ChatMessage extends Schema implements IChatMessage {
   @type("string") content = "";
 }
 
-// export class TicTacToe extends Schema implements ITicTacToeState {
-//   @type(["number"]) board = new ArraySchema<Cell>();
-//   // @type(["number"]) board = new number[]();
-//   // @type("number") activePlayer = 0;
-//   // @type("string") roomId = getRoomId();
-
-// }
+export class TicTacToePlayer extends Schema implements ITicTacToePlayer {
+  @type("string") playerId: string;
+  @type("boolean") activePlayer: boolean;
+}
 
 export class OfficeState extends Schema implements IOfficeState {
   @type({ map: Player })
@@ -62,6 +59,9 @@ export class OfficeState extends Schema implements IOfficeState {
 
   @type(["number"])
   tictactoe = new ArraySchema<Cell>();
+
+  @type([TicTacToePlayer])
+  tictactoePlayerState = new ArraySchema<TicTacToePlayer>();
 }
 
 export const whiteboardRoomIds = new Set<string>();

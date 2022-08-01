@@ -33,8 +33,16 @@ export default class TicTacToeGame extends Phaser.Scene {
         .rectangle(x, y, size, size, 0xffffff)
         .setInteractive()
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-          this.network.playerMakeMoveTicTacToe(idx);
-          console.log(`called playerMakeMoveTicTacToe with idx ${idx}`);
+          this.network.room?.state.tictactoePlayerState.forEach(
+            (player, index) => {
+              if (
+                player.playerId === this.network.mySessionId &&
+                player.activePlayer
+              ) {
+                this.network.playerMakeMoveTicTacToe(idx);
+              }
+            }
+          );
         });
 
       this.cells.push({
@@ -50,6 +58,7 @@ export default class TicTacToeGame extends Phaser.Scene {
 
     this.network.onItemUserAdded(this.handleItemUserAdded, this);
     this.network.onBoardUpdated(this.handleBoardChanged, this);
+    this.network.onPlayerTurnChanged(this.handlePlayerChanged, this);
   }
 
   private handleItemUserAdded(
@@ -60,18 +69,25 @@ export default class TicTacToeGame extends Phaser.Scene {
 
   makeSelection() {}
 
+  private handlePlayerChanged(playerIndex: number) {}
+
   private handleBoardChanged() {
-    console.log(`inside handleBoard changed`);
     const board = store.getState().tictactoe.boardState;
-    console.log(board);
-    console.log(this.cells);
     // console.log(board);
 
     for (let i = 0; i < board.length; i++) {
       const cell = this.cells[i];
+
       if (cell.value !== board[i]) {
-        this.add.star(cell.display.x, cell.display.y, 4, 4, 30, 0xff0000);
-        console.log(i);
+        console.log(board[i]);
+        if (board[i] === 1) {
+          this.add
+            .star(cell.display.x, cell.display.y, 4, 4, 30, 0xff0000)
+            .setAngle(45);
+        } else if (board[i] === 2) {
+          this.add.circle(cell.display.x, cell.display.y, 30, 0x0000ff);
+        }
+        this.cells[i].value = board[i];
       }
     }
   }

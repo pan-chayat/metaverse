@@ -7,7 +7,6 @@ import {
   OfficeState,
   Computer,
   Whiteboard,
-  TicTacToe,
 } from "./schema/OfficeState";
 import { Message } from "../../types/Messages";
 import { IRoomData } from "../../types/Rooms";
@@ -25,6 +24,7 @@ import {
 import ChatMessageUpdateCommand from "./commands/ChatMessageUpdateCommand";
 import TicTacToePlayerSelectionCommand from "./commands/TicTacToePlayerSelectionCommand";
 import { Cell } from "../../types/CellValues";
+import TicTacToeUpdateArrayCommand from "./commands/TicTacToeUpdateArrayCommand";
 
 export class SkyOffice extends Room<OfficeState> {
   private dispatcher = new Dispatcher(this);
@@ -89,7 +89,7 @@ export class SkyOffice extends Room<OfficeState> {
       Message.STOP_SCREEN_SHARE,
       (client, message: { computerId: string }) => {
         const computer = this.state.computers.get(message.computerId);
-        computer.connectedUser.forEach((id) => {
+        computer!.connectedUser.forEach((id) => {
           this.clients.forEach((cli) => {
             if (cli.sessionId === id && cli.sessionId !== client.sessionId) {
               cli.send(Message.STOP_SCREEN_SHARE, client.sessionId);
@@ -191,11 +191,12 @@ export class SkyOffice extends Room<OfficeState> {
     // when a player disconnect from a whiteboard, remove from the whiteboard connectedUser array
     this.onMessage(
       Message.CONNECT_TO_TICTACTOE,
-      (client, message: { tictactoeboardId: string }) => {
-        // this.dispatcher.dispatch(new WhiteboardRemoveUserCommand(), {
-        //   client,
-        //   whiteboardId: message.whiteboardId,
-        // });
+      (client, message: { id: string }) => {
+        // console.log(message.id);
+        this.dispatcher.dispatch(new TicTacToeUpdateArrayCommand(), {
+          client,
+          idx: message.id,
+        });
       }
     );
 
@@ -203,8 +204,6 @@ export class SkyOffice extends Room<OfficeState> {
     this.onMessage(
       Message.PLAYER_MAKE_MOVE_TICTACTOE,
       (client, message: { idx: number }) => {
-        console.log(message.idx);
-        // this.broadcast(Message.PLAYER_MAKE_MOVE_TICTACTOE, )
         this.dispatcher.dispatch(new TicTacToePlayerSelectionCommand(), {
           client,
           idx: message.idx,

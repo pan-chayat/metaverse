@@ -196,13 +196,19 @@ export default class Network {
 
     // event listener for when tictactoe state changes
     this.room.state.tictactoe.onChange = (val, index) => {
-      console.log(
-        `received tictactoe changed state from colyseus emit phaser emit`
-      );
       store.dispatch(
         setUpdatedBoardState({ changedValue: val, changedIndex: index })
       );
       phaserEvents.emit(Event.BOARD_CHANGED);
+    };
+
+    this.room.state.tictactoePlayerState.onAdd = (player, index) => {
+      console.log("inside");
+      player.onChange = (changes) => {
+        if (this.room?.state.tictactoePlayerState.length === 2) {
+          phaserEvents.emit(Event.PLAYER_TURN_CHANGED, changes[0].value);
+        }
+      };
     };
 
     // when the server sends room data
@@ -341,18 +347,20 @@ export default class Network {
     this.room?.send(Message.ADD_CHAT_MESSAGE, { content: content });
   }
 
-  connectToTicTacToe() {
-    this.room?.send(Message.CONNECT_TO_TICTACTOE);
+  connectToTicTacToe(id: string) {
+    this.room?.send(Message.CONNECT_TO_TICTACTOE, { id: id });
   }
 
   playerMakeMoveTicTacToe(idx: number) {
-    console.log(`sent room message PLAYER_MAKE_MOVE_TICTACTOE`);
     this.room?.send(Message.PLAYER_MAKE_MOVE_TICTACTOE, { idx: idx });
   }
 
   // method to register event listener and call back function when a player updated
   onBoardUpdated(callback: () => void, context?: any) {
-    console.log(`received phaser board changed event`);
     phaserEvents.on(Event.BOARD_CHANGED, callback, context);
+  }
+
+  onPlayerTurnChanged(callback: (playerIndex: number) => void, context?: any) {
+    phaserEvents.on(Event.PLAYER_TURN_CHANGED, callback, context);
   }
 }

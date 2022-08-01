@@ -35,7 +35,6 @@ export const tictactoeSlice = createSlice({
       // state.boardState = action.payload;
       state.boardState[action.payload.changedIndex] =
         action.payload.changedValue;
-      console.log(`state updated now`, state.boardState);
     },
   },
 });

@@ -25,17 +25,22 @@ export interface IChatMessage extends Schema {
   content: string;
 }
 
-export interface ITicTacToeState extends Schema {
-  board: ArraySchema<Cell>;
+export interface ITicTacToePlayer extends Schema {
+  playerId: string;
+  activePlayer: boolean;
 }
+
+// export interface ITicTacToePlayerState extends Schema {
+//   board: ArraySchema<Cell>;
+// }
 
 export interface IOfficeState extends Schema {
   players: MapSchema<IPlayer>;
   computers: MapSchema<IComputer>;
   whiteboards: MapSchema<IWhiteboard>;
   chatMessages: ArraySchema<IChatMessage>;
-  // tictactoe: ITicTacToeState;
   tictactoe: ArraySchema<Cell>;
+  tictactoePlayerState: ArraySchema<ITicTacToePlayer>;
 }
 
 // export interface ITicTacToeBoardState extends Schema {
