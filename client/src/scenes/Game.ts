@@ -339,7 +339,7 @@ export default class Game extends Phaser.Scene {
     otherPlayer?.updateOtherPlayer(field, value);
   }
 
-  private handlePlayersOverlap(myPlayer, otherPlayer) {
+  private handlePlayersOverlap(myPlayer: any, otherPlayer: any) {
     otherPlayer.makeCall(myPlayer, this.network?.webRTC);
   }
 
