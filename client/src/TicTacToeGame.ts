@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import TicTacToeBootstrap from "./scenes/TicTacToeBootstrap";
 import TicTacToeGame from "./scenes/TicTacToeGame";
+import GameOver from "./scenes/TicTacToeGameOver";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -20,7 +21,7 @@ const config: Phaser.Types.Core.GameConfig = {
     },
   },
   autoFocus: true,
-  scene: [TicTacToeBootstrap, TicTacToeGame],
+  scene: [TicTacToeBootstrap, TicTacToeGame, GameOver],
 };
 
 export default config;

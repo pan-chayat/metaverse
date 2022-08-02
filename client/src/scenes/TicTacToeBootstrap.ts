@@ -2,6 +2,14 @@ import Phaser, { Game } from "phaser";
 import phaserGame from "../PhaserGame";
 import Network from "../services/Network";
 
+interface IGameOverSceneData {
+  winner: boolean;
+}
+
+interface IGameSceneData {
+  network: Network;
+  onGameOver: (data: IGameOverSceneData) => void;
+}
 export default class TicTacToeBootstrap extends Phaser.Scene {
   network!: Network;
 
@@ -18,6 +26,11 @@ export default class TicTacToeBootstrap extends Phaser.Scene {
   create() {
     this.scene.launch("tictactoe", {
       network: this.network,
+      onGameOver: (data: IGameOverSceneData) => {
+        console.log(data);
+        this.scene.stop("tictactoe");
+        this.scene.launch("game-over", data);
+      },
     });
   }
 

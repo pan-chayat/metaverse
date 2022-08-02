@@ -24,8 +24,11 @@ import {
 import ChatMessageUpdateCommand from "./commands/ChatMessageUpdateCommand";
 import TicTacToePlayerSelectionCommand from "./commands/TicTacToePlayerSelectionCommand";
 import { Cell } from "../../types/CellValues";
-import TicTacToeUpdateArrayCommand from "./commands/TicTacToeUpdateArrayCommand";
-import TicTacToeCheckWinnerCommand from "./commands/TicTacToeWinningCommand";
+import {
+  TicTacToeUpdateArrayCommand,
+  TicTacToeRemoveUsers,
+} from "./commands/TicTacToeUpdateArrayCommand";
+// import TicTacToeCheckWinnerCommand from "./commands/TicTacToeWinningCommand";
 
 export class SkyOffice extends Room<OfficeState> {
   private dispatcher = new Dispatcher(this);
@@ -212,12 +215,18 @@ export class SkyOffice extends Room<OfficeState> {
         // this.dispatcher.dispatch(new TicTacToeCheckWinnerCommand(), {});
       }
     );
+
+    // disconnect players
+    this.onMessage(Message.DISCONNECT_FROM_TICTACTOE, (client) => {
+      console.log("in receive");
+      this.dispatcher.dispatch(new TicTacToeRemoveUsers());
+    });
   }
 
   async onAuth(client: Client, options: { password: string | null }) {
     if (this.password) {
       const validPassword = await bcrypt.compare(
-        options.password,
+        options.password as string,
         this.password
       );
       if (!validPassword) {
@@ -254,8 +263,8 @@ export class SkyOffice extends Room<OfficeState> {
 
   onDispose() {
     this.state.whiteboards.forEach((whiteboard) => {
-      if (whiteboardRoomIds.has(whiteboard.roomId))
-        whiteboardRoomIds.delete(whiteboard.roomId);
+      if (whiteboardRoomIds.has(whiteboard.roomId as string))
+        whiteboardRoomIds.delete(whiteboard.roomId as string);
     });
 
     console.log("room", this.roomId, "disposing...");

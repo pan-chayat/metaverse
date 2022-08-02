@@ -30,9 +30,9 @@ export interface ITicTacToePlayer extends Schema {
   activePlayer: boolean;
 }
 
-// export interface ITicTacToePlayerState extends Schema {
-//   board: ArraySchema<Cell>;
-// }
+export interface ITicTacToeWinningPlayer extends Schema {
+  playerId: string;
+}
 
 export interface IOfficeState extends Schema {
   players: MapSchema<IPlayer>;
@@ -41,9 +41,5 @@ export interface IOfficeState extends Schema {
   chatMessages: ArraySchema<IChatMessage>;
   tictactoe: ArraySchema<Cell>;
   tictactoePlayerState: ArraySchema<ITicTacToePlayer>;
+  tictactoeWinningPlayer: ITicTacToeWinningPlayer;
 }
-
-// export interface ITicTacToeBoardState extends Schema {
-//   board:
-
-// }

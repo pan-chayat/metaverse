@@ -6,21 +6,33 @@ import { Room } from "colyseus.js";
 import { ItemType } from "../../../types/Items";
 import { Cell } from "../../../types/CellValues";
 
+interface IGameOverSceneData {
+  winner: boolean;
+}
+
+interface IGameSceneData {
+  network: Network;
+  onGameOver: (data: IGameOverSceneData) => void;
+}
+
 export default class TicTacToeGame extends Phaser.Scene {
   network!: Network;
   private cells: { display: Phaser.GameObjects.Rectangle; value: Cell }[] = [];
+  private onGameOver!: (data: IGameOverSceneData) => void;
 
   constructor() {
     super("tictactoe");
   }
 
   preload() {}
-  create(data: { network: Network }) {
+  create(data: IGameSceneData) {
     if (!data.network) {
       throw new Error("server instance missing");
     } else {
       this.network = data.network;
     }
+
+    this.onGameOver = data.onGameOver;
 
     const { width, height } = this.scale;
     const size = 128;
@@ -59,6 +71,7 @@ export default class TicTacToeGame extends Phaser.Scene {
     this.network.onItemUserAdded(this.handleItemUserAdded, this);
     this.network.onBoardUpdated(this.handleBoardChanged, this);
     this.network.onPlayerTurnChanged(this.handlePlayerChanged, this);
+    this.network.onGameOver(this.handleGameOver, this);
   }
 
   private handleItemUserAdded(
@@ -90,5 +103,12 @@ export default class TicTacToeGame extends Phaser.Scene {
         this.cells[i].value = board[i];
       }
     }
+  }
+
+  private handleGameOver(playerIndex: string) {
+    this.onGameOver({
+      winner: this.network.mySessionId === playerIndex,
+    });
+    this.network.disconnectBothFromTicTacToe();
   }
 }

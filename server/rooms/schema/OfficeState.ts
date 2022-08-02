@@ -13,6 +13,7 @@ import {
   IWhiteboard,
   IChatMessage,
   ITicTacToePlayer,
+  ITicTacToeWinningPlayer,
 } from "../../../types/IOfficeState";
 
 export class Player extends Schema implements IPlayer {
@@ -44,6 +45,13 @@ export class TicTacToePlayer extends Schema implements ITicTacToePlayer {
   @type("boolean") activePlayer: boolean;
 }
 
+export class TicTacToeWinningPlayer
+  extends Schema
+  implements ITicTacToeWinningPlayer
+{
+  @type("string") playerId: string;
+}
+
 export class OfficeState extends Schema implements IOfficeState {
   @type({ map: Player })
   players = new MapSchema<Player>();
@@ -62,6 +70,9 @@ export class OfficeState extends Schema implements IOfficeState {
 
   @type([TicTacToePlayer])
   tictactoePlayerState = new ArraySchema<TicTacToePlayer>();
+
+  @type(TicTacToeWinningPlayer)
+  tictactoeWinningPlayer = new TicTacToeWinningPlayer();
 }
 
 export const whiteboardRoomIds = new Set<string>();

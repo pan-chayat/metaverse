@@ -8,7 +8,7 @@ type Payload = {
   client: Client;
   idx: string;
 };
-export default class TicTacToeUpdateArrayCommand extends Command<IOfficeState> {
+export class TicTacToeUpdateArrayCommand extends Command<IOfficeState> {
   execute(data: Payload) {
     const { client, idx } = data;
 
@@ -24,5 +24,14 @@ export default class TicTacToeUpdateArrayCommand extends Command<IOfficeState> {
     }
     newPlayer.playerId = idx;
     this.room.state.tictactoePlayerState.push(newPlayer);
+  }
+}
+
+export class TicTacToeRemoveUsers extends Command<IOfficeState> {
+  execute() {
+    this.room.state.tictactoePlayerState.pop();
+    this.room.state.tictactoePlayerState.pop();
+    this.room.state.tictactoeWinningPlayer.playerId = "";
+    console.log("removed both?");
   }
 }

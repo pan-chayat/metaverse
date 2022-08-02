@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -8,6 +8,7 @@ import { useAppSelector, useAppDispatch } from "../hooks";
 import { closeTicTacToeDialog } from "../stores/TicTacToeStore";
 import config from "../TicTacToeGame";
 import TicTacToeBootstrap from "../scenes/TicTacToeBootstrap";
+import { Event, phaserEvents } from "../events/EventCenter";
 
 const Backdrop = styled.div`
   position: fixed;

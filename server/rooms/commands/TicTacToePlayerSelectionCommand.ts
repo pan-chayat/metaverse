@@ -24,6 +24,6 @@ export default class TicTacToePlayerSelectionCommand extends Command<IOfficeStat
     );
 
     this.room.state.tictactoe[idx] = cellValue;
-    return [new TicTacToeCheckWinnerCommand()];
+    return [new TicTacToeCheckWinnerCommand(client)];
   }
 }

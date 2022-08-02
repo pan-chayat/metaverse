@@ -16,4 +16,5 @@ export enum Event {
   UPDATE_DIALOG_BUBBLE = "update-dialog-bubble",
   BOARD_CHANGED = "board-changed",
   PLAYER_TURN_CHANGED = "player-turn-changed",
+  GAME_OVER = "game-over",
 }

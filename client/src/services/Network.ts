@@ -210,6 +210,18 @@ export default class Network {
       };
     };
 
+    // win change state
+    this.room.state.tictactoeWinningPlayer.onChange = (changes) => {
+      phaserEvents.emit(Event.GAME_OVER, changes[0].value);
+      // if (changes[0].value === this.mySessionId) {
+      //   console.log(`You won`);
+      //   phaserEvents.emit(Event.GAME_OVER, `You Won`);
+      // } else {
+      //   console.log(`You lost`);
+      //   phaserEvents.emit(Event.GAME_OVER, `You Lost`);
+      // }
+    };
+
     // when the server sends room data
     this.room.onMessage(Message.SEND_ROOM_DATA, (content) => {
       store.dispatch(setJoinedRoomData(content));
@@ -290,6 +302,10 @@ export default class Network {
     phaserEvents.on(Event.PLAYER_UPDATED, callback, context);
   }
 
+  onGameOver(callback: (playerIndex: string) => void, context?: any) {
+    phaserEvents.on(Event.GAME_OVER, callback, context);
+  }
+
   // method to send player updates to Colyseus server
   updatePlayer(currentX: number, currentY: number, currentAnim: string) {
     this.room?.send(Message.UPDATE_PLAYER, {
@@ -361,5 +377,9 @@ export default class Network {
 
   onPlayerTurnChanged(callback: (playerIndex: number) => void, context?: any) {
     phaserEvents.on(Event.PLAYER_TURN_CHANGED, callback, context);
+  }
+
+  disconnectBothFromTicTacToe() {
+    this.room?.send(Message.DISCONNECT_FROM_TICTACTOE);
   }
 }

@@ -1,9 +1,8 @@
 import { Command } from "@colyseus/command";
+import { Client } from "colyseus";
 import { Cell } from "../../../types/CellValues";
 import { IOfficeState } from "../../../types/IOfficeState";
 import TicTacToePlayerSelectionCommand from "./TicTacToePlayerSelectionCommand";
-
-interface Payload {}
 
 const wins = [
   [
@@ -51,17 +50,32 @@ const getValueAt = (board: number[], row: number, col: number) => {
   const idx = row * 3 + col;
   return board[idx];
 };
+interface Payload {
+  client: Client;
+}
 
 export default class TicTacToeCheckWinnerCommand extends Command<
   IOfficeState,
   Payload
 > {
-  execute() {
+  private _client: Client;
+  constructor(client: Client) {
+    super();
+    this._client = client;
+  }
+  execute(data: Payload) {
     const win = this.determineWin();
     console.log(win);
     if (win) {
       console.log(`winner`);
-    } else {
+      this.state.tictactoePlayerState.forEach((player) => {
+        console.log(player.playerId, this._client.id);
+        if (player.playerId === this._client.id) {
+          // that is the winner
+          console.log(`${player.playerId} is th winner`);
+          this.state.tictactoeWinningPlayer.playerId = player.playerId;
+        }
+      });
     }
   }
 
