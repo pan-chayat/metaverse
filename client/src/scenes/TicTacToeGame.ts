@@ -106,6 +106,7 @@ export default class TicTacToeGame extends Phaser.Scene {
   }
 
   private handleGameOver(playerIndex: string) {
+    console.log(`winner: ${this.network.mySessionId === playerIndex}`);
     this.onGameOver({
       winner: this.network.mySessionId === playerIndex,
     });

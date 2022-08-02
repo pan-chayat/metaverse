@@ -4,6 +4,7 @@ export default class GameOver extends Phaser.Scene {
     super("game-over");
   }
   create(data: { winner: boolean }) {
+    console.log(data);
     const text = data.winner ? `You Won` : `You Lost`;
     const { width, height } = this.scale;
 

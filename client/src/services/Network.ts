@@ -212,14 +212,10 @@ export default class Network {
 
     // win change state
     this.room.state.tictactoeWinningPlayer.onChange = (changes) => {
+      if (changes[0].value === "") {
+        return;
+      }
       phaserEvents.emit(Event.GAME_OVER, changes[0].value);
-      // if (changes[0].value === this.mySessionId) {
-      //   console.log(`You won`);
-      //   phaserEvents.emit(Event.GAME_OVER, `You Won`);
-      // } else {
-      //   console.log(`You lost`);
-      //   phaserEvents.emit(Event.GAME_OVER, `You Lost`);
-      // }
     };
 
     // when the server sends room data
