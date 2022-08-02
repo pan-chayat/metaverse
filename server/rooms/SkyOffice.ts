@@ -25,6 +25,7 @@ import ChatMessageUpdateCommand from "./commands/ChatMessageUpdateCommand";
 import TicTacToePlayerSelectionCommand from "./commands/TicTacToePlayerSelectionCommand";
 import { Cell } from "../../types/CellValues";
 import TicTacToeUpdateArrayCommand from "./commands/TicTacToeUpdateArrayCommand";
+import TicTacToeCheckWinnerCommand from "./commands/TicTacToeWinningCommand";
 
 export class SkyOffice extends Room<OfficeState> {
   private dispatcher = new Dispatcher(this);
@@ -208,6 +209,7 @@ export class SkyOffice extends Room<OfficeState> {
           client,
           idx: message.idx,
         });
+        // this.dispatcher.dispatch(new TicTacToeCheckWinnerCommand(), {});
       }
     );
   }

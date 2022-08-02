@@ -203,7 +203,6 @@ export default class Network {
     };
 
     this.room.state.tictactoePlayerState.onAdd = (player, index) => {
-      console.log("inside");
       player.onChange = (changes) => {
         if (this.room?.state.tictactoePlayerState.length === 2) {
           phaserEvents.emit(Event.PLAYER_TURN_CHANGED, changes[0].value);
