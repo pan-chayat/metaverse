@@ -17,6 +17,7 @@ export class TicTacToeUpdateArrayCommand extends Command<IOfficeState> {
       return;
     }
     const newPlayer = new TicTacToePlayer();
+    console.log("created new object");
     if (this.room.state.tictactoePlayerState.length === 1) {
       newPlayer.activePlayer = false;
     } else {

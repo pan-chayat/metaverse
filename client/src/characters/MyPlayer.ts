@@ -13,6 +13,8 @@ import store from "../stores";
 import { pushPlayerJoinedMessage } from "../stores/ChatStore";
 import { ItemType } from "../../../types/Items";
 import TicTacToeBoard from "../items/TicTacToe";
+import Item from "antd/lib/list/Item";
+import GatedSeats from "../items/GatedSeats";
 
 export default class MyPlayer extends Player {
   private playContainerBody: Phaser.Physics.Arcade.Body;
@@ -59,6 +61,7 @@ export default class MyPlayer extends Player {
     const item = playerSelector.selectedItem;
 
     if (Phaser.Input.Keyboard.JustDown(keyR)) {
+      console.log("detected R");
       switch (item?.itemType) {
         case ItemType.COMPUTER:
           const computer = item as Computer;
@@ -75,6 +78,10 @@ export default class MyPlayer extends Player {
         case ItemType.TICTACTOE:
           const tictactoeboard = item as TicTacToeBoard;
           tictactoeboard.openDialog(network);
+          break;
+        case ItemType.GATEDSEATS:
+          const gatedSeat = item as GatedSeats;
+          gatedSeat.openDialog(network);
       }
     }
 
@@ -102,6 +109,8 @@ export default class MyPlayer extends Player {
                 this.setPosition(
                   chairItem.x + sittingShiftData[chairItem.itemDirection][0],
                   chairItem.y + sittingShiftData[chairItem.itemDirection][1]
+                  // chairItem.x + sittingShiftData[chairItem.itemDirection][0],
+                  // chairItem.y + sittingShiftData[chairItem.itemDirection][1]
                 ).setDepth(
                   chairItem.depth + sittingShiftData[chairItem.itemDirection][2]
                 );
@@ -132,7 +141,11 @@ export default class MyPlayer extends Player {
           });
           // set up new dialog as player sits down
           chairItem.clearDialogBox();
-          chairItem.setDialogBox("Press E to leave");
+          if (chairItem.itemType === ItemType.GATEDSEATS) {
+            chairItem.setDialogBox("Press R to leave");
+          } else {
+            chairItem.setDialogBox("Press E to leave");
+          }
           this.chairOnSit = chairItem;
           this.playerBehavior = PlayerBehavior.SITTING;
           return;

@@ -359,6 +359,7 @@ export default class Network {
   }
 
   connectToTicTacToe(id: string) {
+    console.log("connect to tictactoe");
     this.room?.send(Message.CONNECT_TO_TICTACTOE, { id: id });
   }
 

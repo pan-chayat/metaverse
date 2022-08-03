@@ -197,6 +197,7 @@ export class SkyOffice extends Room<OfficeState> {
       Message.CONNECT_TO_TICTACTOE,
       (client, message: { id: string }) => {
         // console.log(message.id);
+        console.log("connect to tictactoe");
         this.dispatcher.dispatch(new TicTacToeUpdateArrayCommand(), {
           client,
           idx: message.id,

@@ -181,7 +181,6 @@ export default class Game extends Phaser.Scene {
         "chairs",
         "chair"
       ) as GatedSeats;
-      console.log(obj);
       item.itemDirection = "right";
       const id = `${i}`;
       item.id = id;

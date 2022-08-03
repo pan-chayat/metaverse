@@ -17,7 +17,7 @@ export const tictactoeSlice = createSlice({
   name: "tictactoe",
   initialState,
   reducers: {
-    openTicTacToeDialog: (state, action: PayloadAction<string>) => {
+    openTicTacToeDialog: (state) => {
       console.log("should open dialog");
       state.tictactoeDialogOpen = true;
       const game = phaserGame.scene.keys.game as Game;

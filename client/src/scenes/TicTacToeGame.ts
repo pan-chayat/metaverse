@@ -47,6 +47,9 @@ export default class TicTacToeGame extends Phaser.Scene {
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
           this.network.room?.state.tictactoePlayerState.forEach(
             (player, index) => {
+              console.log(
+                `playerId: ${player.playerId} mySessionId: ${this.network.mySessionId} activePlayer: ${player.activePlayer}`
+              );
               if (
                 player.playerId === this.network.mySessionId &&
                 player.activePlayer

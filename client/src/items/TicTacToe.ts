@@ -57,7 +57,7 @@ export default class TicTacToeBoard extends Item {
       return;
     }
     console.log(network.mySessionId);
-    store.dispatch(openTicTacToeDialog(this.id));
+    store.dispatch(openTicTacToeDialog());
     network.connectToTicTacToe(network.mySessionId);
     // store.dispatch(openWhiteboardDialog(this.id));
     // network.connectToWhiteboard(this.id);

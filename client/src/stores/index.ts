@@ -6,6 +6,7 @@ import whiteboardReducer from "./WhiteboardStore";
 import chatReducer from "./ChatStore";
 import roomReducer from "./RoomStore";
 import tictactoeReducer from "./TicTacToeStore";
+import gatedSeatsReducer from "./GatedSeatsStore";
 
 enableMapSet();
 
@@ -17,6 +18,7 @@ const store = configureStore({
     chat: chatReducer,
     room: roomReducer,
     tictactoe: tictactoeReducer,
+    gatedseats: gatedSeatsReducer,
   },
   // Temporary disable serialize check for redux as we store MediaStream in ComputerStore.
   // https://stackoverflow.com/a/63244831

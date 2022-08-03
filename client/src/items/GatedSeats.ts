@@ -3,6 +3,7 @@ import store from "../stores";
 import Item from "./Item";
 import Network from "../services/Network";
 import { openTicTacToeDialog } from "../stores/TicTacToeStore";
+import { openGatedSeatsDialog } from "../stores/GatedSeatsStore";
 
 export default class GatedSeats extends Item {
   id?: string;
@@ -58,8 +59,8 @@ export default class GatedSeats extends Item {
     if (!this.id) {
       return;
     }
-    console.log(network.mySessionId);
-    store.dispatch(openTicTacToeDialog(this.id));
-    network.connectToTicTacToe(network.mySessionId);
+    store.dispatch(openGatedSeatsDialog());
+    // store.dispatch(openTicTacToeDialog(this.id));
+    // network.connectToTicTacToe(network.mySessionId);
   }
 }

@@ -18,6 +18,7 @@ import VideoConnectionDialog from "./components/VideoConnectionDialog";
 import Chat from "./components/Chat";
 import HelperButtonGroup from "./components/HelperButtonGroup";
 import TicTacToeDialog from "./components/TicTacToeDialog";
+import GatedSeatsDialog from "./components/GatedSeatsDialog";
 
 function App() {
   const loggedIn = useAppSelector((state) => state.user.loggedIn);
@@ -29,6 +30,9 @@ function App() {
   );
   const ludoboardDialogOpen = useAppSelector(
     (state) => state.tictactoe.tictactoeDialogOpen
+  );
+  const gatedSeatsDialogOpen = useAppSelector(
+    (state) => state.gatedseats.gatedSeatsDialogOpen
   );
   const videoConnected = useAppSelector((state) => state.user.videoConnected);
   const roomJoined = useAppSelector((state) => state.room.roomJoined);
@@ -44,6 +48,8 @@ function App() {
     } else if (whiteboardDialogOpen) {
       /* Render WhiteboardDialog if user is using a whiteboard. */
       ui = <WhiteboardDialog />;
+    } else if (gatedSeatsDialogOpen) {
+      ui = <GatedSeatsDialog />;
     } else {
       ui = (
         /* Render Chat or VideoConnectionDialog if no dialogs are opened. */
