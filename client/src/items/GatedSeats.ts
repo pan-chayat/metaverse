@@ -4,9 +4,10 @@ import Item from "./Item";
 import Network from "../services/Network";
 import { openTicTacToeDialog } from "../stores/TicTacToeStore";
 
-export default class TicTacToeBoard extends Item {
+export default class GatedSeats extends Item {
   id?: string;
   currentUsers = new Set<string>();
+  itemDirection?: string;
 
   constructor(
     scene: Phaser.Scene,
@@ -17,7 +18,7 @@ export default class TicTacToeBoard extends Item {
   ) {
     super(scene, x, y, texture, frame);
 
-    this.itemType = ItemType.TICTACTOE;
+    this.itemType = ItemType.GATEDSEATS;
   }
 
   private updateStatus() {
@@ -32,11 +33,12 @@ export default class TicTacToeBoard extends Item {
   }
 
   onOverlapDialog() {
-    if (this.currentUsers.size === 0) {
-      this.setDialogBox("Press R to start game");
-    } else {
-      this.setDialogBox("Press R join");
-    }
+    this.setDialogBox("Press E to sit");
+    // if (this.currentUsers.size === 0) {
+    //   this.setDialogBox("Press R to start game");
+    // } else {
+    //   this.setDialogBox("Press R join");
+    // }
   }
 
   addCurrentUser(userId: string) {
@@ -59,7 +61,5 @@ export default class TicTacToeBoard extends Item {
     console.log(network.mySessionId);
     store.dispatch(openTicTacToeDialog(this.id));
     network.connectToTicTacToe(network.mySessionId);
-    // store.dispatch(openWhiteboardDialog(this.id));
-    // network.connectToWhiteboard(this.id);
   }
 }

@@ -21,6 +21,7 @@ import { ItemType } from "../../../types/Items";
 import store from "../stores";
 import { setFocused, setShowChat } from "../stores/ChatStore";
 import TicTacToeBoard from "../items/TicTacToe";
+import GatedSeats from "../items/GatedSeats";
 
 export default class Game extends Phaser.Scene {
   network!: Network;
@@ -102,6 +103,7 @@ export default class Game extends Phaser.Scene {
       ) as Chair;
       // custom properties[0] is the object direction specified in Tiled
       item.itemDirection = chairObj.properties[0].value;
+      // console.log(chairObj);
     });
 
     // import computers objects from Tiled map to Phaser
@@ -167,6 +169,24 @@ export default class Game extends Phaser.Scene {
       // this.whiteboardMap.set(id, item);
     });
 
+    // importing the gated seats
+    const gatedSeats = this.physics.add.staticGroup({
+      classType: GatedSeats,
+    });
+    const gatedSeatsLayer = this.map.getObjectLayer("GatedSeats");
+    gatedSeatsLayer.objects.forEach((obj, i) => {
+      const item = this.addObjectFromTiled(
+        gatedSeats,
+        obj,
+        "chairs",
+        "chair"
+      ) as GatedSeats;
+      console.log(obj);
+      item.itemDirection = "right";
+      const id = `${i}`;
+      item.id = id;
+    });
+
     // import other objects from Tiled map to Phaser
     this.addGroupFromTiled("Wall", "tiles_wall", "FloorAndGround", false);
     this.addGroupFromTiled(
@@ -206,7 +226,7 @@ export default class Game extends Phaser.Scene {
 
     this.physics.add.overlap(
       this.playerSelector,
-      [chairs, computers, whiteboards, vendingMachines, ludoBoards],
+      [chairs, computers, whiteboards, vendingMachines, ludoBoards, gatedSeats],
       this.handleItemSelectorOverlap,
       undefined,
       this

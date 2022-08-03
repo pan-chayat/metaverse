@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="1357">
+<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="27" nextobjectid="1367">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
@@ -13341,7 +13341,7 @@
  <objectgroup id="14" name="VendingMachine" locked="1">
   <object id="1262" gid="5488" x="378" y="209" width="48" height="72"/>
  </objectgroup>
- <objectgroup id="25" name="Ludo">
+ <objectgroup id="25" name="Ludo" locked="1">
   <object id="1350" gid="5489" x="492.5" y="281.5" width="16" height="16"/>
   <object id="1351" gid="5490" x="475.25" y="248.75" width="16" height="16"/>
   <object id="1352" gid="5490" x="471.5" y="274.75" width="16" height="16"/>
@@ -13349,5 +13349,16 @@
   <object id="1354" gid="5490" x="529" y="251" width="16" height="16"/>
   <object id="1355" gid="5490" x="524" y="282" width="16" height="16"/>
   <object id="1356" gid="5490" x="527.25" y="306.75" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="26" name="GatedSeats">
+  <properties>
+   <property name="direction" value="right"/>
+  </properties>
+  <object id="1361" gid="2564" x="741.75" y="174" width="32" height="64"/>
+  <object id="1362" gid="2564" x="742.75" y="230" width="32" height="64"/>
+  <object id="1363" gid="2564" x="794" y="231.5" width="32" height="64"/>
+  <object id="1364" gid="2564" x="796.5" y="174.75" width="32" height="64"/>
+  <object id="1365" gid="2564" x="843.75" y="174.25" width="32" height="64"/>
+  <object id="1366" gid="2564" x="843.5" y="233.75" width="32" height="64"/>
  </objectgroup>
 </map>

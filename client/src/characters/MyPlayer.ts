@@ -12,7 +12,7 @@ import { phaserEvents, Event } from "../events/EventCenter";
 import store from "../stores";
 import { pushPlayerJoinedMessage } from "../stores/ChatStore";
 import { ItemType } from "../../../types/Items";
-import LudoBoard from "../items/TicTacToe";
+import TicTacToeBoard from "../items/TicTacToe";
 
 export default class MyPlayer extends Player {
   private playContainerBody: Phaser.Physics.Arcade.Body;
@@ -72,9 +72,9 @@ export default class MyPlayer extends Player {
           // hacky and hard-coded, but leaving it as is for now
           window.open("https://www.buymeacoffee.com/skyoffice", "_blank");
           break;
-        case ItemType.LUDOBOARD:
-          const ludoboard = item as LudoBoard;
-          ludoboard.openDialog(network);
+        case ItemType.TICTACTOE:
+          const tictactoeboard = item as TicTacToeBoard;
+          tictactoeboard.openDialog(network);
       }
     }
 
@@ -83,7 +83,8 @@ export default class MyPlayer extends Player {
         // if press E in front of selected chair
         if (
           Phaser.Input.Keyboard.JustDown(keyE) &&
-          item?.itemType === ItemType.CHAIR
+          (item?.itemType === ItemType.CHAIR ||
+            item?.itemType === ItemType.GATEDSEATS)
         ) {
           const chairItem = item as Chair;
           /**
