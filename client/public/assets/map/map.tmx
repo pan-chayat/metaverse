@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="18" nextobjectid="1287">
+<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="1357">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
@@ -12827,8 +12827,8 @@
  <tileset firstgid="5488" name="vendingmachine" tilewidth="48" tileheight="72" tilecount="1" columns="1">
   <image source="../items/vendingmachine.png" width="48" height="72"/>
  </tileset>
- <tileset firstgid="5489" name="ludo16x16" tilewidth="16" tileheight="16" tilecount="1" columns="1">
-  <image source="ludo16x16.png" width="16" height="16"/>
+ <tileset firstgid="5489" name="ludo16x16" tilewidth="16" tileheight="16" tilecount="2" columns="2">
+  <image source="ludo16x16.png" trans="003039" width="32" height="16"/>
  </tileset>
  <layer id="2" name="Ground" width="40" height="30" locked="1">
   <data encoding="csv">
@@ -13294,7 +13294,7 @@
   <object id="835" gid="3645" x="512" y="160" width="32" height="32"/>
   <object id="836" gid="3661" x="512" y="192" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="8" name="GenericObjectsOnCollide">
+ <objectgroup id="8" name="GenericObjectsOnCollide" locked="1">
   <object id="716" gid="4463" x="736" y="128" width="32" height="32"/>
   <object id="826" gid="4388" x="1216" y="896" width="32" height="32"/>
   <object id="827" gid="4404" x="1216" y="928" width="32" height="32"/>
@@ -13308,12 +13308,12 @@
   <object id="878" gid="4681" x="960" y="800" width="96" height="64"/>
   <object id="879" gid="4683" x="1152" y="800" width="96" height="64"/>
  </objectgroup>
- <objectgroup id="10" name="Whiteboard">
+ <objectgroup id="10" name="Whiteboard" locked="1">
   <object id="880" gid="4685" x="928" y="320" width="64" height="64"/>
   <object id="881" gid="4686" x="832" y="96" width="64" height="64"/>
   <object id="1263" gid="4687" x="512" y="544" width="64" height="64"/>
  </objectgroup>
- <objectgroup id="13" name="Basement">
+ <objectgroup id="13" name="Basement" locked="1">
   <object id="1192" gid="5037" x="480" y="256" width="32" height="32"/>
   <object id="1194" gid="5055" x="480" y="288" width="32" height="32"/>
   <object id="1195" gid="5053" x="480" y="320" width="32" height="32"/>
@@ -13341,7 +13341,13 @@
  <objectgroup id="14" name="VendingMachine" locked="1">
   <object id="1262" gid="5488" x="378" y="209" width="48" height="72"/>
  </objectgroup>
- <objectgroup id="17" name="Ludo">
-  <object id="1286" gid="5489" x="500.667" y="285.333" width="16" height="16"/>
+ <objectgroup id="25" name="Ludo">
+  <object id="1350" gid="5489" x="492.5" y="281.5" width="16" height="16"/>
+  <object id="1351" gid="5490" x="475.25" y="248.75" width="16" height="16"/>
+  <object id="1352" gid="5490" x="471.5" y="274.75" width="16" height="16"/>
+  <object id="1353" gid="5490" x="471.25" y="299.25" width="16" height="16"/>
+  <object id="1354" gid="5490" x="529" y="251" width="16" height="16"/>
+  <object id="1355" gid="5490" x="524" y="282" width="16" height="16"/>
+  <object id="1356" gid="5490" x="527.25" y="306.75" width="16" height="16"/>
  </objectgroup>
 </map>
