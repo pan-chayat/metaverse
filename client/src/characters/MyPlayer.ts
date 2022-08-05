@@ -73,7 +73,7 @@ export default class MyPlayer extends Player {
           break;
         case ItemType.VENDINGMACHINE:
           // hacky and hard-coded, but leaving it as is for now
-          window.open("https://www.buymeacoffee.com/skyoffice", "_blank");
+          window.open("https://landing-page-six-swart.vercel.app/", "_blank");
           break;
         case ItemType.TICTACTOE:
           const tictactoeboard = item as TicTacToeBoard;

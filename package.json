@@ -1,7 +1,7 @@
 {
   "name": "metaverse",
   "version": "1.0.0",
-  "description": "Server for SkyOffice",
+  "description": "Server Panchayat",
   "main": ".eslintrc.js",
   "scripts": {
     "start": "cd server && ts-node-dev --project tsconfig.server.json --respawn --transpile-only index.ts",

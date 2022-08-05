@@ -458,6 +458,7 @@ export default class Game extends Phaser.Scene {
       );
     }
     const hasNFT = store.getState().user.ownsNFT;
+    console.log(`User hasNFT: ${hasNFT}`);
     if (walletAddress && hasNFT) {
       this.removeEntryBlock("RestrictEntryBlock");
     }
