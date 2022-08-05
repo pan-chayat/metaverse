@@ -22,6 +22,7 @@ import store from "../stores";
 import { setFocused, setShowChat } from "../stores/ChatStore";
 import TicTacToeBoard from "../items/TicTacToe";
 import GatedSeats from "../items/GatedSeats";
+import isHolder from "../smartContractInterface/fetchNFTState";
 
 export default class Game extends Phaser.Scene {
   network!: Network;
@@ -35,6 +36,11 @@ export default class Game extends Phaser.Scene {
   private otherPlayerMap = new Map<string, OtherPlayer>();
   computerMap = new Map<string, Computer>();
   private whiteboardMap = new Map<string, Whiteboard>();
+
+  private collidableRestrictedEntry!: any;
+  private groupRestrictedEntry!: any;
+  private objectLayerRestrictedEntry!: any;
+  private RestrictedEntryColliderExists!: boolean;
 
   constructor() {
     super("game");
@@ -169,6 +175,8 @@ export default class Game extends Phaser.Scene {
       // this.whiteboardMap.set(id, item);
     });
 
+    // this.map.removeLayer
+
     // importing the gated seats
     const gatedSeats = this.physics.add.staticGroup({
       classType: GatedSeats,
@@ -207,6 +215,17 @@ export default class Game extends Phaser.Scene {
       "Generic",
       true
     );
+
+    const walletAddress = store.getState().user.walletAddress;
+
+    this.addGroupFromTiled(
+      "RestrictEntryBlock",
+      "tiles_wall",
+      "FloorAndGround",
+      true
+    );
+    this.RestrictedEntryColliderExists = true;
+
     this.addGroupFromTiled("Basement", "basement", "Basement", true);
 
     this.otherPlayers = this.physics.add.group({ classType: OtherPlayer });
@@ -309,12 +328,21 @@ export default class Game extends Phaser.Scene {
           object.gid! - this.map.getTileset(tilesetName).firstgid
         )
         .setDepth(actualY);
+      if (objectLayerName === "RestrictEntryBlock") {
+        this.groupRestrictedEntry = group;
+      }
     });
-    if (this.myPlayer && collidable)
-      this.physics.add.collider(
+
+    if (this.myPlayer && collidable) {
+      const collider = this.physics.add.collider(
         [this.myPlayer, this.myPlayer.playerContainer],
         group
       );
+      if (objectLayerName === "RestrictEntryBlock") {
+        this.collidableRestrictedEntry = collider;
+        this.RestrictedEntryColliderExists = true;
+      }
+    }
   }
 
   // function to add new player to the otherPlayer group
@@ -395,7 +423,28 @@ export default class Game extends Phaser.Scene {
     otherPlayer?.updateDialogBubble(content);
   }
 
+  private removeEntryBlock(objectLayerName: string) {
+    this.physics.world.removeCollider(this.collidableRestrictedEntry);
+    this.groupRestrictedEntry.setActive(false).setVisible(false);
+    this.RestrictedEntryColliderExists = false;
+  }
+
+  private addEntryBlock(objectLayerName: string) {
+    this.groupRestrictedEntry.setActive(true).setVisible(true);
+
+    if (!this.RestrictedEntryColliderExists) {
+      this.addGroupFromTiled(
+        "RestrictEntryBlock",
+        "tiles_wall",
+        "FloorAndGround",
+        true
+      );
+    }
+  }
+
   update(t: number, dt: number) {
+    // const walletAddress = useAppSelector((state) => state.user.walletAddress);
+    const walletAddress = store.getState().user.walletAddress;
     if (this.myPlayer && this.network) {
       this.playerSelector.update(this.myPlayer, this.cursors);
       this.myPlayer.update(
@@ -405,6 +454,16 @@ export default class Game extends Phaser.Scene {
         this.keyR,
         this.network
       );
+    }
+    const objectLayer = this.map.getObjectLayer("RestrictEntryBlock");
+    const isVisible = objectLayer.objects[0].visible;
+    if (walletAddress && isVisible) {
+      this.removeEntryBlock("RestrictEntryBlock");
+    }
+
+    if (!walletAddress) {
+      console.log("no wallet so wall should show");
+      this.addEntryBlock("RestrictEntryBlock");
     }
   }
 }

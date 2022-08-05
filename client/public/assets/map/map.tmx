@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="27" nextobjectid="1367">
+<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="28" nextobjectid="1382">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
@@ -13350,7 +13350,11 @@
   <object id="1355" gid="5490" x="524" y="282" width="16" height="16"/>
   <object id="1356" gid="5490" x="527.25" y="306.75" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="26" name="GatedSeats">
+ <objectgroup id="27" name="RestrictEntryBlock">
+  <object id="1377" gid="162" x="672.667" y="288" width="32" height="32"/>
+  <object id="1381" gid="233" x="672" y="320.667" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="26" name="GatedSeats" locked="1">
   <properties>
    <property name="direction" value="right"/>
   </properties>

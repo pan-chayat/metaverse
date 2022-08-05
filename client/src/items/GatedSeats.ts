@@ -34,7 +34,7 @@ export default class GatedSeats extends Item {
   }
 
   onOverlapDialog() {
-    this.setDialogBox("Press E to sit");
+    this.setDialogBox("Press R to sit");
     // if (this.currentUsers.size === 0) {
     //   this.setDialogBox("Press R to start game");
     // } else {

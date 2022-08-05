@@ -1,21 +1,27 @@
-import React, { useState } from 'react'
-import logo from '../assets/logo.png'
-import styled from 'styled-components'
-import Button from '@mui/material/Button'
-import IconButton from '@mui/material/IconButton'
-import Tooltip from '@mui/material/Tooltip'
-import LinearProgress from '@mui/material/LinearProgress'
-import Alert from '@mui/material/Alert'
-import Snackbar from '@mui/material/Snackbar'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import React, {
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useState,
+} from "react";
+import logo from "../assets/logo.png";
+import styled from "styled-components";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import LinearProgress from "@mui/material/LinearProgress";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-import { CustomRoomTable } from './CustomRoomTable'
-import { CreateRoomForm } from './CreateRoomForm'
-import { useAppSelector } from '../hooks'
+import { CustomRoomTable } from "./CustomRoomTable";
+import { CreateRoomForm } from "./CreateRoomForm";
+import { useAppSelector } from "../hooks";
 
-import phaserGame from '../PhaserGame'
-import Bootstrap from '../scenes/Bootstrap'
+import phaserGame from "../PhaserGame";
+import Bootstrap from "../scenes/Bootstrap";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Backdrop = styled.div`
   position: absolute;
@@ -26,14 +32,14 @@ const Backdrop = styled.div`
   flex-direction: column;
   gap: 60px;
   align-items: center;
-`
+`;
 
 const Wrapper = styled.div`
   background: #222639;
   border-radius: 16px;
   padding: 36px 60px;
   box-shadow: 0px 0px 5px #0000006f;
-`
+`;
 
 const CustomRoomWrapper = styled.div`
   position: relative;
@@ -46,19 +52,19 @@ const CustomRoomWrapper = styled.div`
   .tip {
     font-size: 18px;
   }
-`
+`;
 
 const BackButtonWrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-`
+`;
 
 const Title = styled.h1`
   font-size: 24px;
   color: #eee;
   text-align: center;
-`
+`;
 
 const Content = styled.div`
   display: flex;
@@ -72,7 +78,7 @@ const Content = styled.div`
     border-radius: 8px;
     height: 120px;
   }
-`
+`;
 
 const ProgressBarWrapper = styled.div`
   display: flex;
@@ -82,45 +88,53 @@ const ProgressBarWrapper = styled.div`
   h3 {
     color: #33ac96;
   }
-`
+`;
 
 const ProgressBar = styled(LinearProgress)`
   width: 360px;
-`
+`;
 
-export default function RoomSelectionDialog() {
-  const [showCustomRoom, setShowCustomRoom] = useState(false)
-  const [showCreateRoomForm, setShowCreateRoomForm] = useState(false)
-  const [showSnackbar, setShowSnackbar] = useState(false)
-  const lobbyJoined = useAppSelector((state) => state.room.lobbyJoined)
+interface IProps {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  open: boolean;
+}
+
+const RoomSelectionDialog: FunctionComponent<IProps> = ({
+  setOpen,
+  open,
+}: IProps) => {
+  const [showCustomRoom, setShowCustomRoom] = useState(false);
+  const [showCreateRoomForm, setShowCreateRoomForm] = useState(false);
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const lobbyJoined = useAppSelector((state) => state.room.lobbyJoined);
 
   const handleConnect = () => {
     if (lobbyJoined) {
-      const bootstrap = phaserGame.scene.keys.bootstrap as Bootstrap
+      const bootstrap = phaserGame.scene.keys.bootstrap as Bootstrap;
       bootstrap.network
         .joinOrCreatePublic()
         .then(() => bootstrap.launchGame())
-        .catch((error) => console.error(error))
+        .catch((error) => console.error(error));
     } else {
-      setShowSnackbar(true)
+      setShowSnackbar(true);
     }
-  }
+  };
 
   return (
     <>
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={showSnackbar}
         autoHideDuration={3000}
         onClose={() => {
-          setShowSnackbar(false)
+          setShowSnackbar(false);
         }}
       >
         <Alert
           severity="error"
           variant="outlined"
           // overwrites the dark theme on render
-          style={{ background: '#fdeded', color: '#7d4747' }}
+          style={{ background: "#fdeded", color: "#7d4747" }}
         >
           Trying to connect to server, please try again!
         </Alert>
@@ -166,19 +180,28 @@ export default function RoomSelectionDialog() {
             </CustomRoomWrapper>
           ) : (
             <>
-              <Title>Welcome to SkyOffice</Title>
+              <Title>Welcome to F-Ridge</Title>
               <Content>
                 <img src={logo} alt="logo" />
-                <Button variant="contained" color="secondary" onClick={handleConnect}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleConnect}
+                >
                   Connect to public lobby
                 </Button>
                 <Button
                   variant="outlined"
                   color="secondary"
-                  onClick={() => (lobbyJoined ? setShowCustomRoom(true) : setShowSnackbar(true))}
+                  onClick={() =>
+                    lobbyJoined
+                      ? setShowCustomRoom(true)
+                      : setShowSnackbar(true)
+                  }
                 >
                   Create/find custom rooms
                 </Button>
+                <ConnectButton />
               </Content>
             </>
           )}
@@ -191,5 +214,7 @@ export default function RoomSelectionDialog() {
         )}
       </Backdrop>
     </>
-  )
-}
+  );
+};
+
+export default RoomSelectionDialog;

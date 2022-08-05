@@ -4319,6 +4319,41 @@
         }, 
         {
          "draworder":"topdown",
+         "id":27,
+         "name":"RestrictEntryBlock",
+         "objects":[
+                {
+                 "gid":162,
+                 "height":32,
+                 "id":1377,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":672.666666666667,
+                 "y":288
+                }, 
+                {
+                 "gid":233,
+                 "height":32,
+                 "id":1381,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":672,
+                 "y":320.666666666667
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":26,
          "name":"GatedSeats",
          "objects":[
@@ -4406,8 +4441,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":27,
- "nextobjectid":1367,
+ "nextlayerid":28,
+ "nextobjectid":1382,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.0",

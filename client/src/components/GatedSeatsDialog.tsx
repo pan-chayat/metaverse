@@ -5,6 +5,15 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { closeTicTacToeDialog } from "../stores/TicTacToeStore";
+import { closeGatedSeatsDialog } from "../stores/GatedSeatsStore";
+import { HuddleIframe, IframeConfig } from "@huddle01/huddle01-iframe";
+
+const iframeConfig: IframeConfig = {
+  roomUrl: "http://localhost:3000",
+  height: "600px",
+  width: "80%",
+  noBorder: false, // false by default
+};
 
 const Backdrop = styled.div`
   position: fixed;
@@ -55,10 +64,11 @@ export default function GatedSeatsDialog() {
         <IconButton
           aria-label="close dialog"
           className="close"
-          onClick={() => dispatch(closeTicTacToeDialog())}
+          onClick={() => dispatch(closeGatedSeatsDialog())}
         >
           <CloseIcon />
         </IconButton>
+        <HuddleIframe config={iframeConfig} />
         <div id="tictactoe-container"></div>
       </Wrapper>
     </Backdrop>

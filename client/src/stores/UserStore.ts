@@ -20,6 +20,7 @@ export const userSlice = createSlice({
     videoConnected: false,
     loggedIn: false,
     playerNameMap: new Map<string, string>(),
+    walletAddress: "",
   },
   reducers: {
     toggleBackgroundMode: (state) => {
@@ -53,6 +54,12 @@ export const userSlice = createSlice({
     removePlayerNameMap: (state, action: PayloadAction<string>) => {
       state.playerNameMap.delete(sanitizeId(action.payload));
     },
+    setWalletAddress: (state, action: PayloadAction<string>) => {
+      state.walletAddress = action.payload;
+    },
+    removeWalletAddress: (state) => {
+      state.walletAddress = "";
+    },
   },
 });
 
@@ -63,6 +70,8 @@ export const {
   setLoggedIn,
   setPlayerNameMap,
   removePlayerNameMap,
+  setWalletAddress,
+  removeWalletAddress,
 } = userSlice.actions;
 
 export default userSlice.reducer;

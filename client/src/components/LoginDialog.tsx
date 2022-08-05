@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+import React, {
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useState,
+} from "react";
 import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -7,7 +12,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper";
@@ -22,7 +27,9 @@ import { getAvatarString, getColorByString } from "../util";
 
 import phaserGame from "../PhaserGame";
 import Game from "../scenes/Game";
-
+import { useAccount } from "wagmi";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { Snackbar } from "@mui/material";
 const Wrapper = styled.form`
   position: fixed;
   top: 50%;
@@ -79,13 +86,12 @@ const Content = styled.div`
   margin: 36px 0;
 `;
 
-
 const Left = styled.div`
   margin-right: 48px;
 
   --swiper-navigation-size: 24px;
 
-  .swiper{
+  .swiper {
     max-width: 160px;
     height: 220px;
     border-radius: 8px;
@@ -140,7 +146,16 @@ for (let i = avatars.length - 1; i > 0; i--) {
   [avatars[i], avatars[j]] = [avatars[j], avatars[i]];
 }
 
-export default function LoginDialog() {
+// interface IProps {
+//   setProp: Dispatch<SetStateAction<boolean>>;
+// }
+
+interface IProps {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  open: boolean;
+}
+
+const LoginDialog: FunctionComponent<IProps> = ({ setOpen, open }: IProps) => {
   const [name, setName] = useState<string>("");
   const [avatarIndex, setAvatarIndex] = useState<number>(0);
   const [nameFieldEmpty, setNameFieldEmpty] = useState<boolean>(false);
@@ -150,6 +165,7 @@ export default function LoginDialog() {
   const roomName = useAppSelector((state) => state.room.roomName);
   const roomDescription = useAppSelector((state) => state.room.roomDescription);
   const game = phaserGame.scene.keys.game as Game;
+  const { address, connector, isConnected } = useAccount();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -187,7 +203,7 @@ export default function LoginDialog() {
             slidesPerView={1}
             onSlideChange={(swiper) => {
               setAvatarIndex(swiper.activeIndex);
-              console.log(swiper.activeIndex)
+              console.log(swiper.activeIndex);
             }}
           >
             {avatars.map((avatar) => (
@@ -245,7 +261,10 @@ export default function LoginDialog() {
         >
           Join
         </Button>
+        {/* <ConnectButton /> */}
       </Bottom>
     </Wrapper>
   );
-}
+};
+
+export default LoginDialog;

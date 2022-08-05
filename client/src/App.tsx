@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "./logo.svg";
 import "./App.css";
-import { useAppSelector } from "./hooks";
+import { useAppDispatch, useAppSelector } from "./hooks";
 
 const Backdrop = styled.div`
   position: absolute;
@@ -19,6 +19,11 @@ import Chat from "./components/Chat";
 import HelperButtonGroup from "./components/HelperButtonGroup";
 import TicTacToeDialog from "./components/TicTacToeDialog";
 import GatedSeatsDialog from "./components/GatedSeatsDialog";
+import { Alert, Snackbar } from "@mui/material";
+import { useAccount } from "wagmi";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import ErrorToast from "./components/ErrorToast";
+import { setWalletAddress } from "./stores/UserStore";
 
 function App() {
   const loggedIn = useAppSelector((state) => state.user.loggedIn);
@@ -37,6 +42,19 @@ function App() {
   const videoConnected = useAppSelector((state) => state.user.videoConnected);
   const roomJoined = useAppSelector((state) => state.room.roomJoined);
   // const ludoDialogOpen = useAppSelector((state) => state.ludo.ludoDialogOpen);
+  const [open, setOpen] = useState<boolean>(false);
+  const { address, connector, isConnected } = useAccount();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (address) {
+      dispatch(setWalletAddress(address));
+    }
+    if (!isConnected) {
+      dispatch(setWalletAddress(""));
+    }
+  }, [address]);
 
   let ui: JSX.Element;
   if (loggedIn) {
@@ -62,15 +80,17 @@ function App() {
     }
   } else if (roomJoined) {
     /* Render LoginDialog if not logged in but selected a room. */
-    ui = <LoginDialog />;
+    ui = <LoginDialog setOpen={setOpen} open={open} />;
   } else {
     /* Render RoomSelectionDialog if yet selected a room. */
-    ui = <RoomSelectionDialog />;
+    ui = <RoomSelectionDialog setOpen={setOpen} open={open} />;
   }
 
   return (
     <Backdrop>
+      <ErrorToast open={open} setOpen={setOpen} />
       {ui}
+      <ConnectButton />
       {/* Render HelperButtonGroup if no dialogs are opened. */}
       {!computerDialogOpen && !whiteboardDialogOpen && <HelperButtonGroup />}
     </Backdrop>
