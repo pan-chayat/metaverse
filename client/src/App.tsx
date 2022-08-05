@@ -23,7 +23,11 @@ import { Alert, Snackbar } from "@mui/material";
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import ErrorToast from "./components/ErrorToast";
-import { setWalletAddress } from "./stores/UserStore";
+import { setOwnNFTs, setWalletAddress } from "./stores/UserStore";
+import { ethers } from "ethers";
+import { ABI } from "./smartContractInterface/abi";
+import isHolder from "./smartContractInterface/fetchNFTState";
+// import isHolder from "./smartContractInterface/fetchNFTState";
 
 function App() {
   const loggedIn = useAppSelector((state) => state.user.loggedIn);
@@ -48,8 +52,14 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    const ContractAddress = "0xe0af15141ABd0B31Fb15e250971936Fe8837230a";
+    const values = async (address: string) => {
+      dispatch(setOwnNFTs(await isHolder(address)));
+    };
     if (address) {
       dispatch(setWalletAddress(address));
+      values(address);
+      // dispatch(setOwnNFTs(await isHolder(address)));
     }
     if (!isConnected) {
       dispatch(setWalletAddress(""));

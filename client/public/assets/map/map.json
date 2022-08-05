@@ -4323,28 +4323,28 @@
          "name":"RestrictEntryBlock",
          "objects":[
                 {
-                 "gid":162,
+                 "gid":786,
                  "height":32,
-                 "id":1377,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":672.666666666667,
-                 "y":288
-                }, 
-                {
-                 "gid":233,
-                 "height":32,
-                 "id":1381,
+                 "id":1392,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
                  "x":672,
-                 "y":320.666666666667
+                 "y":320
+                }, 
+                {
+                 "gid":722,
+                 "height":32,
+                 "id":1393,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":672,
+                 "y":288
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -4442,7 +4442,7 @@
          "y":0
         }],
  "nextlayerid":28,
- "nextobjectid":1382,
+ "nextobjectid":1394,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.0",

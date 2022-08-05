@@ -1,5 +1,5 @@
 import { enableMapSet } from "immer";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, createListenerMiddleware } from "@reduxjs/toolkit";
 import userReducer from "./UserStore";
 import computerReducer from "./ComputerStore";
 import whiteboardReducer from "./WhiteboardStore";
@@ -8,6 +8,7 @@ import roomReducer from "./RoomStore";
 import tictactoeReducer from "./TicTacToeStore";
 import gatedSeatsReducer from "./GatedSeatsStore";
 
+const listenerMiddleware = createListenerMiddleware();
 enableMapSet();
 
 const store = configureStore({

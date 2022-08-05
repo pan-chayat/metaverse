@@ -41,6 +41,7 @@ export default class Game extends Phaser.Scene {
   private groupRestrictedEntry!: any;
   private objectLayerRestrictedEntry!: any;
   private RestrictedEntryColliderExists!: boolean;
+  private ownsNFTs!: boolean;
 
   constructor() {
     super("game");
@@ -75,6 +76,7 @@ export default class Game extends Phaser.Scene {
     } else {
       this.network = data.network;
     }
+    const walletAddress = store.getState().user.walletAddress;
 
     createCharacterAnims(this.anims);
 
@@ -216,8 +218,6 @@ export default class Game extends Phaser.Scene {
       true
     );
 
-    const walletAddress = store.getState().user.walletAddress;
-
     this.addGroupFromTiled(
       "RestrictEntryBlock",
       "tiles_wall",
@@ -329,6 +329,7 @@ export default class Game extends Phaser.Scene {
         )
         .setDepth(actualY);
       if (objectLayerName === "RestrictEntryBlock") {
+        console.log("yo");
         this.groupRestrictedEntry = group;
       }
     });
@@ -440,6 +441,7 @@ export default class Game extends Phaser.Scene {
         true
       );
     }
+    this.RestrictedEntryColliderExists = true;
   }
 
   update(t: number, dt: number) {
@@ -455,15 +457,16 @@ export default class Game extends Phaser.Scene {
         this.network
       );
     }
-    const objectLayer = this.map.getObjectLayer("RestrictEntryBlock");
-    const isVisible = objectLayer.objects[0].visible;
-    if (walletAddress && isVisible) {
+    const hasNFT = store.getState().user.ownsNFT;
+    if (walletAddress && hasNFT) {
       this.removeEntryBlock("RestrictEntryBlock");
     }
-
-    if (!walletAddress) {
-      console.log("no wallet so wall should show");
+    if (!hasNFT) {
       this.addEntryBlock("RestrictEntryBlock");
     }
+
+    // if (!walletAddress) {
+    //   this.addEntryBlock("RestrictEntryBlock");
+    // }
   }
 }

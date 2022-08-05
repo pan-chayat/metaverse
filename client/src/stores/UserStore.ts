@@ -21,6 +21,7 @@ export const userSlice = createSlice({
     loggedIn: false,
     playerNameMap: new Map<string, string>(),
     walletAddress: "",
+    ownsNFT: false,
   },
   reducers: {
     toggleBackgroundMode: (state) => {
@@ -60,6 +61,9 @@ export const userSlice = createSlice({
     removeWalletAddress: (state) => {
       state.walletAddress = "";
     },
+    setOwnNFTs: (state, action: PayloadAction<boolean>) => {
+      state.ownsNFT = action.payload;
+    },
   },
 });
 
@@ -72,6 +76,7 @@ export const {
   removePlayerNameMap,
   setWalletAddress,
   removeWalletAddress,
+  setOwnNFTs,
 } = userSlice.actions;
 
 export default userSlice.reducer;
