@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@colyseus/schema": "^1.0.36",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@huddle01/huddle01-iframe": "^0.0.6",

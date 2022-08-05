@@ -384,6 +384,11 @@
   resolved "https://registry.yarnpkg.com/@colyseus/schema/-/schema-1.0.34.tgz#b20d3590c78c6aaf006daea9b9541abaff13843d"
   integrity sha512-2PfCqu9dJlfbkQsxGi9oM+fAmWpPeMLol6tazRdBxb5mj8QykUzRFMY4pipBlUB2tkQ4qidoRMQqjVHj2HznNg==
 
+"@colyseus/schema@^1.0.36":
+  version "1.0.36"
+  resolved "https://registry.yarnpkg.com/@colyseus/schema/-/schema-1.0.36.tgz#6831b0eb8f8937918b37427903e69c53f6816211"
+  integrity sha512-9LHDELuDCcp/EbZUsgdcekOPINvq+5Dn/Jooq+I2jHymU1zqzzwoqNq9+YYkuvI70OIJ1esPurcMTA2+o7brYg==
+
 "@ctrl/tinycolor@^3.4.0":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.4.1.tgz#75b4c27948c81e88ccd3a8902047bcd797f38d32"
