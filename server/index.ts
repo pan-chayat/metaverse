@@ -1,35 +1,36 @@
-import http from 'http'
-import express from 'express'
-import cors from 'cors'
-import { Server, LobbyRoom } from 'colyseus'
-import { monitor } from '@colyseus/monitor'
-import { RoomType } from '../types/Rooms'
+import http from "http";
+import express from "express";
+import cors from "cors";
+import { Server, LobbyRoom } from "colyseus";
+import { monitor } from "@colyseus/monitor";
+import { RoomType } from "../types/Rooms";
 
 // import socialRoutes from "@colyseus/social/express"
 
-import { SkyOffice } from './rooms/SkyOffice'
+import { PanChayat } from "./rooms/PanChayat";
 
-const port = Number(process.env.PORT || 2567)
-const app = express()
+const port = Number(process.env.PORT || 2567);
+const app = express();
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 // app.use(express.static('dist'))
 
-const server = http.createServer(app)
+const server = http.createServer(app);
 const gameServer = new Server({
   server,
-})
+});
 
 // register room handlers
-gameServer.define(RoomType.LOBBY, LobbyRoom)
-gameServer.define(RoomType.PUBLIC, SkyOffice, {
-  name: 'Public Lobby',
-  description: 'For making friends and familiarizing yourself with the controls',
+gameServer.define(RoomType.LOBBY, LobbyRoom);
+gameServer.define(RoomType.PUBLIC, PanChayat, {
+  name: "Public Lobby",
+  description:
+    "For making friends and familiarizing yourself with the controls",
   password: null,
   autoDispose: false,
-})
-gameServer.define(RoomType.CUSTOM, SkyOffice).enableRealtimeListing()
+});
+gameServer.define(RoomType.CUSTOM, PanChayat).enableRealtimeListing();
 
 /**
  * Register @colyseus/social routes
@@ -40,7 +41,7 @@ gameServer.define(RoomType.CUSTOM, SkyOffice).enableRealtimeListing()
 // app.use("/", socialRoutes);
 
 // register colyseus monitor AFTER registering your room handlers
-app.use('/colyseus', monitor())
+app.use("/colyseus", monitor());
 
-gameServer.listen(port)
-console.log(`Listening on ws://localhost:${port}`)
+gameServer.listen(port);
+console.log(`Listening on ws://localhost:${port}`);

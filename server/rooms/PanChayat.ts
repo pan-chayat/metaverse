@@ -28,9 +28,8 @@ import {
   TicTacToeUpdateArrayCommand,
   TicTacToeRemoveUsers,
 } from "./commands/TicTacToeUpdateArrayCommand";
-// import TicTacToeCheckWinnerCommand from "./commands/TicTacToeWinningCommand";
 
-export class SkyOffice extends Room<OfficeState> {
+export class PanChayat extends Room<OfficeState> {
   private dispatcher = new Dispatcher(this);
   private name: string;
   private description: string;
