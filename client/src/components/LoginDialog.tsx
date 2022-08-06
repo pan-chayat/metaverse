@@ -2,6 +2,7 @@ import React, {
   Dispatch,
   FunctionComponent,
   SetStateAction,
+  useEffect,
   useState,
 } from "react";
 import styled from "styled-components";
@@ -27,9 +28,13 @@ import { getAvatarString, getColorByString } from "../util";
 
 import phaserGame from "../PhaserGame";
 import Game from "../scenes/Game";
-import { useAccount } from "wagmi";
+import { useAccount, useContract, useSigner } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Snackbar } from "@mui/material";
+import { shortenAddress } from "../utils/shortenAddress";
+import { pns_abi } from "../smartContractInterface/pns_abi";
+// import checkPNS from "../utils/checkPNS";
+
 const Wrapper = styled.form`
   position: fixed;
   top: 50%;
@@ -165,8 +170,40 @@ const LoginDialog: FunctionComponent<IProps> = ({ setOpen, open }: IProps) => {
   const roomName = useAppSelector((state) => state.room.roomName);
   const roomDescription = useAppSelector((state) => state.room.roomDescription);
   const game = phaserGame.scene.keys.game as Game;
-  // const { address, connector, isConnected } = useAccount();
+  const { address, connector, isConnected } = useAccount();
+  const { data: signer, isError, isLoading } = useSigner();
 
+  const smartcontractAddress = "0xad62f2a809b3eff5445b68721bc60ebcda762908";
+  const contract = useContract({
+    addressOrName: smartcontractAddress,
+    contractInterface: pns_abi,
+    signerOrProvider: signer,
+  });
+  // useEffect(() => {
+  //   const something = async () => {
+  //     let ensOrNot;
+  //     if (contract) {
+  //       ensOrNot = await contract?.fetchPNS(address);
+  //     }
+  //     console.log(`ensOrNot ${ensOrNot}`);
+  //     if (ensOrNot) {
+  //       setName(ensOrNot);
+  //     } else {
+  //       setName(isConnected ? shortenAddress(address as string) : "0x0");
+  //     }
+  //   };
+  //   console.log("something");
+  //   something();
+  // }, [address]);
+
+  const checkPNS = ({ addr }: { addr: string }) => {
+    const contract = useContract({
+      addressOrName: addr,
+      contractInterface: pns_abi,
+      signerOrProvider: signer,
+    });
+    return contract;
+  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (name === "") {
