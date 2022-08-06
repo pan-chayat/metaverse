@@ -26,6 +26,7 @@ export default class TicTacToeGame extends Phaser.Scene {
 
   preload() {}
   create(data: IGameSceneData) {
+    console.log(data);
     if (!data.network) {
       throw new Error("server instance missing");
     } else {

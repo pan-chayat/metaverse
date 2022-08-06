@@ -27,6 +27,7 @@ import { setOwnNFTs, setWalletAddress } from "./stores/UserStore";
 import { ethers } from "ethers";
 import { ABI } from "./smartContractInterface/abi";
 import isHolder from "./smartContractInterface/fetchNFTState";
+import NFTFrameDialog from "./components/NFTFrameDialog";
 // import isHolder from "./smartContractInterface/fetchNFTState";
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
   );
   const gatedSeatsDialogOpen = useAppSelector(
     (state) => state.gatedseats.gatedSeatsDialogOpen
+  );
+  const nftFramesDialogOpen = useAppSelector(
+    (state) => state.nftframes.nftFrameDialogOpen
   );
   const videoConnected = useAppSelector((state) => state.user.videoConnected);
   const roomJoined = useAppSelector((state) => state.room.roomJoined);
@@ -78,6 +82,8 @@ function App() {
       ui = <WhiteboardDialog />;
     } else if (gatedSeatsDialogOpen) {
       ui = <GatedSeatsDialog />;
+    } else if (nftFramesDialogOpen) {
+      ui = <NFTFrameDialog />;
     } else {
       ui = (
         /* Render Chat or VideoConnectionDialog if no dialogs are opened. */

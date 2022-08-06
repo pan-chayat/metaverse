@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="28" nextobjectid="1394">
+<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="29" nextobjectid="1451">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
@@ -13071,11 +13071,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="Objects">
-  <object id="372" gid="2776" x="704" y="288" width="32" height="32"/>
-  <object id="373" gid="2777" x="736" y="288" width="32" height="32"/>
-  <object id="374" gid="2792" x="704" y="320" width="32" height="32"/>
-  <object id="375" gid="2793" x="736" y="320" width="32" height="32"/>
+ <objectgroup id="5" name="Objects" locked="1">
   <object id="376" gid="2751" x="640" y="288" width="32" height="32"/>
   <object id="377" gid="2767" x="640" y="320" width="32" height="32"/>
   <object id="378" gid="2782" x="192" y="352" width="32" height="32"/>
@@ -13154,7 +13150,7 @@
   <object id="1267" gid="2836" x="576" y="160" width="32" height="32"/>
   <object id="1268" gid="2852" x="576" y="192" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="7" name="ObjectsOnCollide">
+ <objectgroup id="7" name="ObjectsOnCollide" locked="1">
   <object id="418" gid="2613" x="480" y="672" width="32" height="32"/>
   <object id="419" gid="2612" x="448" y="672" width="32" height="32"/>
   <object id="426" gid="2612" x="416" y="672" width="32" height="32"/>
@@ -13278,7 +13274,7 @@
   <object id="392" gid="2814" x="448" y="416" width="32" height="32"/>
   <object id="1266" gid="2868" x="576" y="224" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="6" name="GenericObjects">
+ <objectgroup id="6" name="GenericObjects" locked="1">
   <object id="707" gid="4130" x="928" y="64" width="32" height="32"/>
   <object id="708" gid="4131" x="960" y="64" width="32" height="32"/>
   <object id="709" gid="4146" x="928" y="96" width="32" height="32"/>
@@ -13289,10 +13285,6 @@
   <object id="714" gid="4146" x="1152" y="320" width="32" height="32"/>
   <object id="715" gid="4447" x="736" y="96" width="32" height="32"/>
   <object id="828" gid="4460" x="928" y="128" width="32" height="32"/>
-  <object id="833" gid="3644" x="480" y="160" width="32" height="32"/>
-  <object id="834" gid="3660" x="480" y="192" width="32" height="32"/>
-  <object id="835" gid="3645" x="512" y="160" width="32" height="32"/>
-  <object id="836" gid="3661" x="512" y="192" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="8" name="GenericObjectsOnCollide" locked="1">
   <object id="716" gid="4463" x="736" y="128" width="32" height="32"/>
@@ -13350,7 +13342,7 @@
   <object id="1355" gid="5490" x="524" y="282" width="16" height="16"/>
   <object id="1356" gid="5490" x="527.25" y="306.75" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="27" name="RestrictEntryBlock">
+ <objectgroup id="27" name="RestrictEntryBlock" locked="1">
   <object id="1392" gid="786" x="672" y="320" width="32" height="32"/>
   <object id="1393" gid="722" x="672" y="288" width="32" height="32"/>
  </objectgroup>
@@ -13364,5 +13356,27 @@
   <object id="1364" gid="2564" x="796.5" y="174.75" width="32" height="64"/>
   <object id="1365" gid="2564" x="843.75" y="174.25" width="32" height="64"/>
   <object id="1366" gid="2564" x="843.5" y="233.75" width="32" height="64"/>
+ </objectgroup>
+ <objectgroup id="28" name="NFTFrames">
+  <object id="1430" gid="3644" x="192" y="160" width="32" height="32"/>
+  <object id="1431" gid="3645" x="224" y="160" width="32" height="32"/>
+  <object id="1432" gid="3660" x="192" y="192" width="32" height="32"/>
+  <object id="1433" gid="3661" x="224" y="192" width="32" height="32"/>
+  <object id="1434" gid="3642" x="256" y="160" width="32" height="32"/>
+  <object id="1435" gid="3643" x="288" y="160" width="32" height="32"/>
+  <object id="1436" gid="3658" x="256" y="192" width="32" height="32"/>
+  <object id="1437" gid="3659" x="288" y="192" width="32" height="32"/>
+  <object id="1438" gid="3640" x="320" y="160" width="32" height="32"/>
+  <object id="1439" gid="3641" x="352" y="160" width="32" height="32"/>
+  <object id="1440" gid="3657" x="352" y="192" width="32" height="32"/>
+  <object id="1441" gid="3656" x="320" y="192" width="32" height="32"/>
+  <object id="1443" gid="3644" x="448" y="160" width="32" height="32"/>
+  <object id="1444" gid="3645" x="480" y="160" width="32" height="32"/>
+  <object id="1445" gid="3660" x="448" y="192" width="32" height="32"/>
+  <object id="1446" gid="3661" x="480" y="192" width="32" height="32"/>
+  <object id="1447" gid="3641" x="544" y="160" width="32" height="32"/>
+  <object id="1448" gid="3640" x="512" y="160" width="32" height="32"/>
+  <object id="1449" gid="3656" x="512" y="192" width="32" height="32"/>
+  <object id="1450" gid="3657" x="544" y="192" width="32" height="32"/>
  </objectgroup>
 </map>

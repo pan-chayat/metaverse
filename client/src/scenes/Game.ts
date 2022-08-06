@@ -23,6 +23,7 @@ import { setFocused, setShowChat } from "../stores/ChatStore";
 import TicTacToeBoard from "../items/TicTacToe";
 import GatedSeats from "../items/GatedSeats";
 import isHolder from "../smartContractInterface/fetchNFTState";
+import NFTFrame from "../items/NFTFrames";
 
 export default class Game extends Phaser.Scene {
   network!: Network;
@@ -196,6 +197,20 @@ export default class Game extends Phaser.Scene {
       item.id = id;
     });
 
+    // import NFT frames
+    const nftFrames = this.physics.add.staticGroup({
+      classType: NFTFrame,
+    });
+    const nftFramesLayer = this.map.getObjectLayer("NFTFrames");
+    nftFramesLayer.objects.forEach((obj, i) => {
+      const item = this.addObjectFromTiled(
+        nftFrames,
+        obj,
+        "generic",
+        "Generic"
+      );
+    });
+
     // import other objects from Tiled map to Phaser
     this.addGroupFromTiled("Wall", "tiles_wall", "FloorAndGround", false);
     this.addGroupFromTiled(
@@ -204,6 +219,8 @@ export default class Game extends Phaser.Scene {
       "Modern_Office_Black_Shadow",
       false
     );
+
+    // this.addGroupFromTiled("NFTs", "generic", "Generic", false);
     this.addGroupFromTiled(
       "ObjectsOnCollide",
       "office",
@@ -218,6 +235,7 @@ export default class Game extends Phaser.Scene {
       true
     );
 
+    // Restricting block for NFT owners and not
     this.addGroupFromTiled(
       "RestrictEntryBlock",
       "tiles_wall",
@@ -244,7 +262,15 @@ export default class Game extends Phaser.Scene {
 
     this.physics.add.overlap(
       this.playerSelector,
-      [chairs, computers, whiteboards, vendingMachines, ludoBoards, gatedSeats],
+      [
+        chairs,
+        computers,
+        whiteboards,
+        vendingMachines,
+        ludoBoards,
+        gatedSeats,
+        nftFrames,
+      ],
       this.handleItemSelectorOverlap,
       undefined,
       this
@@ -458,7 +484,6 @@ export default class Game extends Phaser.Scene {
       );
     }
     const hasNFT = store.getState().user.ownsNFT;
-    console.log(`User hasNFT: ${hasNFT}`);
     if (walletAddress && hasNFT) {
       this.removeEntryBlock("RestrictEntryBlock");
     }

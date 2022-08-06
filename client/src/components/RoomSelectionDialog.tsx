@@ -180,7 +180,7 @@ const RoomSelectionDialog: FunctionComponent<IProps> = ({
             </CustomRoomWrapper>
           ) : (
             <>
-              <Title>Welcome to F-Ridge</Title>
+              {/* <Title>Welcome to F-Ridge</Title> */}
               <Content>
                 <img src={logo} alt="logo" />
                 <Button

@@ -20,8 +20,9 @@ export default class TicTacToeBootstrap extends Phaser.Scene {
   preload() {}
 
   init(data: IGameSceneData) {
-    // this.network = phaserGame.scene.keys.bootstrap.network as Network;
-    this.network = data.network;
+    // @ts-ignore
+    this.network = phaserGame.scene.keys.bootstrap.network as Network;
+    // this.network = data.network;
   }
 
   create() {

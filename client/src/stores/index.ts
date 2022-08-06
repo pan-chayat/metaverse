@@ -7,6 +7,7 @@ import chatReducer from "./ChatStore";
 import roomReducer from "./RoomStore";
 import tictactoeReducer from "./TicTacToeStore";
 import gatedSeatsReducer from "./GatedSeatsStore";
+import nftFramesReducer from "./NFTFrames";
 
 const listenerMiddleware = createListenerMiddleware();
 enableMapSet();
@@ -20,6 +21,7 @@ const store = configureStore({
     room: roomReducer,
     tictactoe: tictactoeReducer,
     gatedseats: gatedSeatsReducer,
+    nftframes: nftFramesReducer,
   },
   // Temporary disable serialize check for redux as we store MediaStream in ComputerStore.
   // https://stackoverflow.com/a/63244831

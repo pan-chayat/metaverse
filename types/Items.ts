@@ -5,4 +5,5 @@ export enum ItemType {
   VENDINGMACHINE,
   TICTACTOE,
   GATEDSEATS,
+  NFTFRAMES,
 }

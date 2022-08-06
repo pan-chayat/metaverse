@@ -15,6 +15,7 @@ import { ItemType } from "../../../types/Items";
 import TicTacToeBoard from "../items/TicTacToe";
 import Item from "antd/lib/list/Item";
 import GatedSeats from "../items/GatedSeats";
+import NFTFrame from "../items/NFTFrames";
 
 export default class MyPlayer extends Player {
   private playContainerBody: Phaser.Physics.Arcade.Body;
@@ -82,6 +83,11 @@ export default class MyPlayer extends Player {
         case ItemType.GATEDSEATS:
           const gatedSeat = item as GatedSeats;
           gatedSeat.openDialog(network);
+          break;
+        case ItemType.NFTFRAMES:
+          const nftFrame = item as NFTFrame;
+          nftFrame.openDialog();
+          break;
       }
     }
 
