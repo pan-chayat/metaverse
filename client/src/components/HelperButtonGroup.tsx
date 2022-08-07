@@ -205,13 +205,12 @@ export default function HelperButtonGroup() {
           </>
         )}
         <Tooltip title="Visit Our GitHub">
-          {/* <StyledFab
+          <StyledFab
             size="small"
             href="https://github.com/pan-chayat/metaverse"
-            target="_blank"
-          > */}
-          <GitHubIcon />
-          {/* </StyledFab> */}
+          >
+            <GitHubIcon />
+          </StyledFab>
         </Tooltip>
         <Tooltip title="Follow Us on Twitter">
           <StyledFab size="small" href="https://twitter.com/yangit69">
