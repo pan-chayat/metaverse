@@ -1,7 +1,7 @@
 import { ABI } from "./abi";
 import { ethers } from "ethers";
 
-export const ContractAddress = "0xe0af15141ABd0B31Fb15e250971936Fe8837230a";
+export const ContractAddress = "0xaff48d77e670b9d4ef29ac494bcb02a8b77ff348";
 export const tokenContractAddress =
   "0x58DDA6B8f3A6934fa277077A0b526cf02F34960a";
 // const address = "0x6B2eBFe3FE5c5B84746105421de93Df383b222E8";
